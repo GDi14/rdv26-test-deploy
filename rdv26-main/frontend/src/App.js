@@ -5,6 +5,7 @@ import Home from "@/pages/Home";
 import EventsPage from "@/pages/EventsPage";
 import RegisterPage from "@/pages/RegisterPage";
 import ContactPage from "@/pages/ContactPage";
+import GalleryPage from "@/pages/GalleryPage";
 import CustomCursor from "@/components/rdv/CustomCursor";
 import ScanlineOverlay from "@/components/rdv/ScanlineOverlay";
 
@@ -33,6 +34,7 @@ function App() {
           <Route path="/events"   element={<EventsPage />}   />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/contact"  element={<ContactPage />}  />
+          <Route path="/gallery"  element={<GalleryPage />}  />
         </Routes>
       </BrowserRouter>
     </div>

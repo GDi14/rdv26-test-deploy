@@ -383,6 +383,16 @@ body {
     }
 }
 
+/* Hide custom cursor on the gallery page to prevent layout freeze and grab-cursor conflicts */
+body:has([data-testid="gallery-root"]) .rdv-cursor,
+body:has([data-testid="gallery-root"]) .rdv-cursor-dot {
+    display: none !important;
+}
+body:has([data-testid="gallery-root"]) {
+    cursor: auto !important;
+}
+
+
 /* ===== STICKER / ROTATIONS ===== */
 .rotate-y2k-a {
     transform: rotate(-3deg);

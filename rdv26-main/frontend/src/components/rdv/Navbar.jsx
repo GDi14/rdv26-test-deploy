@@ -13,6 +13,7 @@ const BLANK_IMG =
 const MENU_ITEMS = [
   { label: "Home",     ariaLabel: "Go to home",        link: "/"         },
   { label: "Events",   ariaLabel: "Go to events",      link: "/events"   },
+  { label: "Gallery",  ariaLabel: "Go to gallery",      link: "/gallery"  },
   { label: "Register", ariaLabel: "Go to registration", link: "/register" },
   { label: "Contact",  ariaLabel: "Contact us",         link: "/contact"  },
 ];

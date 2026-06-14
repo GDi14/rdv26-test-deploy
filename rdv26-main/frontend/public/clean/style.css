@@ -1,0 +1,218 @@
+/* style.css — NaughtyDuk Globe Gallery Replica */
+
+:root {
+  --nd-bg: var(--clr-bg, #f0f0f0);
+  --nd-bg-rgb: 240, 240, 240;
+  --nd-1000: var(--clr-text, #101010);
+  --nd-300: var(--clr-bg, #ececec);
+  --nd-500: var(--clr-border, #e2e2e7);
+  --nd-600: var(--clr-text-muted, #aaaaaa);
+  --nd-700: var(--clr-text-muted, #737d7d);
+  --font-mono: 'Space Mono', 'Courier New', monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+*::-webkit-scrollbar { display: none; }
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--nd-bg);
+  font-family: var(--font-mono);
+  color: var(--nd-1000);
+  user-select: none;
+  -webkit-user-select: none;
+  overscroll-behavior: none;
+}
+
+/* Grain Overlay */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Canvas Container */
+#canvas-container {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+}
+#canvas-container canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  cursor: grab;
+}
+#canvas-container canvas:active,
+#canvas-container.dragging canvas {
+  cursor: grabbing;
+}
+
+.zoom-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.45);
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: scale(0.96);
+  transition: opacity 0.24s ease, transform 0.24s ease, visibility 0.24s ease;
+}
+
+.zoom-overlay.open {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: scale(1);
+}
+
+.zoom-overlay-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.zoom-overlay-content {
+  position: relative;
+  width: auto;
+  max-width: min(60vw, 520px);
+  max-height: min(60vh, 520px);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  transform: scale(0.95);
+  transition: transform 0.24s ease;
+}
+
+.zoom-overlay.open .zoom-overlay-content {
+  transform: scale(1);
+}
+
+.zoom-overlay-img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+  border-radius: 10px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.35);
+}
+
+.zoom-overlay-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 38px;
+  height: 38px;
+  border: none;
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  font-size: 28px;
+  line-height: 1;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.zoom-overlay-close:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+/* === CAPSULE TOGGLE (GRID / LIST) === */
+.capsule-wrapper {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(48px);
+  z-index: 9999;
+  width: 220px;
+  height: 32px;
+  pointer-events: auto;
+  visibility: hidden;
+}
+
+.capsule-shape {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.capsule-svg {
+  width: 100%;
+  height: 100%;
+  color: var(--nd-1000);
+  pointer-events: none;
+}
+
+.capsule-buttons {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  pointer-events: auto;
+}
+
+.capsule-btn {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: none;
+  background: transparent;
+  color: var(--nd-600);
+  cursor: pointer;
+  transition: color 0.3s ease;
+  padding: 8px 16px;
+  margin-bottom: -1px;
+  pointer-events: auto;
+}
+.capsule-btn:hover {
+  color: var(--nd-300);
+}
+.capsule-btn.active {
+  color: var(--nd-300);
+}
+.capsule-btn:focus {
+  outline: none;
+  border: none;
+}
+
+/* Inactive LIST button color */
+#view-list:not(.active),
+#view-list:not(.active):hover {
+  color: #fc2c08;
+}
+
+/* Inactive GRID button color */
+#view-grid:not(.active),
+#view-grid:not(.active):hover {
+  color: #fc2c08;
+}
+
+.capsule-divider {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--nd-500);
+  pointer-events: none;
+}

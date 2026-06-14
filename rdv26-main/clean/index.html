@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RDV GALLERY</title>
+  <meta name="description" content="Inspired Gallery">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <script>
+    window.addEventListener('error', function(e) {
+      var div = document.createElement('div');
+      div.style.position = 'fixed';
+      div.style.top = '0';
+      div.style.left = '0';
+      div.style.width = '100%';
+      div.style.background = 'red';
+      div.style.color = 'white';
+      div.style.zIndex = '999999';
+      div.style.padding = '10px';
+      div.style.fontFamily = 'monospace';
+      div.style.fontSize = '12px';
+      div.style.whiteSpace = 'pre-wrap';
+      div.innerText = 'JS Error: ' + e.message + ' at ' + e.filename + ':' + e.lineno;
+      document.body.appendChild(div);
+    });
+  </script>
+
+  <!-- Three.js r167 (module) + addons -->
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.167.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.167.0/examples/jsm/"
+    }
+  }
+  </script>
+</head>
+<body>
+  <!-- WebGL Canvas Container -->
+  <div id="canvas-container"></div>
+
+  <!-- Noise Grain Overlay -->
+  <div class="grain-overlay"></div>
+
+  <!-- GRID / LIST Capsule Toggle -->
+  <div class="capsule-wrapper" id="capsule-wrapper">
+    <div class="capsule-shape">
+      <svg viewBox="0 0 180 32" class="capsule-svg" preserveAspectRatio="none">
+        <path d="M 40 0 H 140 C 160 0, 160 32, 180 32 H 0 C 20 32, 20 0, 40 0 Z" fill="currentColor"/>
+        <path d="M 0 32 C 20 32, 20 0, 40 0 H 140 C 160 0, 160 32, 180 32" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/>
+      </svg>
+    </div>
+    <div class="capsule-buttons">
+      <button id="view-grid" class="capsule-btn active">GRID</button>
+      <span class="capsule-divider" id="capsule-divider">/</span>
+      <button id="view-list" class="capsule-btn">LIST</button>
+    </div>
+  </div>
+
+  <!-- JS Scripts -->
+  <script src="projects_db.js"></script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
