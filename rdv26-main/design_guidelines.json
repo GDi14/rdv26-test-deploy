@@ -1,0 +1,116 @@
+{
+  "theme": "dark",
+  "archetype": "7 (Electric & Neon)",
+  "design_concept": "Y2K Tech-Rave Maximalism",
+  "colors": {
+    "background": {
+      "primary": "#050505",
+      "secondary": "#110B1C",
+      "terminal_panel": "#000000"
+    },
+    "text": {
+      "primary": "#F8F9FA",
+      "secondary": "#A1A1AA",
+      "terminal_green": "#39FF14"
+    },
+    "brand": {
+      "acid_green": "#C6FF00",
+      "cyber_yellow": "#FFF000",
+      "hot_pink": "#FF007F",
+      "cyan": "#00FFFF",
+      "chrome_silver": "#E0E0E0",
+      "glitch_red": "#D72E2E"
+    }
+  },
+  "typography": {
+    "headings": {
+      "font_family": "Unbounded, sans-serif",
+      "weight": "800",
+      "letter_spacing": "tracking-tighter",
+      "text_transform": "uppercase"
+    },
+    "body": {
+      "font_family": "Outfit, sans-serif",
+      "weight": "400",
+      "line_height": "leading-relaxed"
+    },
+    "terminal": {
+      "font_family": "'JetBrains Mono', monospace",
+      "weight": "400",
+      "letter_spacing": "tracking-widest",
+      "text_transform": "uppercase"
+    }
+  },
+  "layout_spacing": {
+    "container_padding": "p-6 md:p-12",
+    "section_gap": "gap-24 md:gap-32",
+    "grid_style": "bento_asymmetric",
+    "border_radius": "rounded-none" 
+  },
+  "surface_strategies": {
+    "cards": "retro_futurism",
+    "borders": "1px solid #39FF14 or #E0E0E0",
+    "shadows": "drop-shadow-[4px_4px_0_#C6FF00] or drop-shadow-[0_0_8px_rgba(57,255,20,0.5)]"
+  },
+  "animations": {
+    "hover": "glitch_effect, -translate-y-1, invert_colors",
+    "scroll": "react-spring-parallax or framer-motion stagger",
+    "marquee": "fast-moving kinetic texture, outline text",
+    "terminal": "typewriter effect for loading and headers"
+  },
+  "components": {
+    "hero": {
+      "layout": "maximalist full screen with overlapping 3D chrome shapes and marquee text",
+      "interaction": "custom cursor, glitch hover on title"
+    },
+    "event_information": {
+      "layout": "asymmetric bento grid, overlapping stickers",
+      "cards": "hard edges, high contrast, neo-brutalist"
+    },
+    "registration": {
+      "style": "terminal / ms-dos interface",
+      "form_elements": "monospace text, stark #000 backgrounds with #39FF14 borders and text, blinking cursor"
+    },
+    "contact": {
+      "layout": "massive typography, scrolling marquee ribbons, high energy footer"
+    }
+  },
+  "media": {
+    "image_urls": {
+      "chrome_shapes": [
+        {
+          "url": "https://images.unsplash.com/photo-1678782307359-064ba12b45ba?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NTJ8MHwxfHNlYXJjaHwyfHxzaWx2ZXIlMjBjaHJvbWUlMjAzZCUyMHNoYXBlc3xlbnwwfHx8fDE3ODA3NjgzNjZ8MA&ixlib=rb-4.1.0&q=85",
+          "description": "a glass object is shown on a black background",
+          "category": "hero_3d_element"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1739056238818-d00d80f0f842?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NTJ8MHwxfHNlYXJjaHwzfHxzaWx2ZXIlMjBjaHJvbWUlMjAzZCUyMHNoYXBlc3xlbnwwfHx8fDE3ODA3NjgzNjZ8MA&ixlib=rb-4.1.0&q=85",
+          "description": "A silver object on a black background",
+          "category": "hero_3d_element"
+        }
+      ],
+      "y2k_abstract": [
+        {
+          "url": "https://images.unsplash.com/photo-1744390166596-d1d0c0a76aa9?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NzV8MHwxfHNlYXJjaHwzfHx5MmslMjBhY2lkJTIwcmF2ZSUyMGFic3RyYWN0fGVufDB8fHx8MTc4MDc2ODM2NXww&ixlib=rb-4.1.0&q=85",
+          "description": "Abstract image featuring black shapes on green.",
+          "category": "background_texture"
+        },
+        {
+          "url": "https://images.unsplash.com/photo-1746470621309-0bb74b10b19b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NzV8MHwxfHNlYXJjaHwxfHx5MmslMjBhY2lkJTIwcmF2ZSUyMGFic3RyYWN0fGVufDB8fHx8MTc4MDc2ODM2NXww&ixlib=rb-4.1.0&q=85",
+          "description": "Neon pink and yellow swirls on a black background.",
+          "category": "event_card_background"
+        }
+      ]
+    }
+  },
+  "instructions_to_main_agent": [
+    "Build the UI focusing on a Y2K, maximalist aesthetic with dark mode (Archetype 7: Electric & Neon).",
+    "Use raw HTML/Tailwind for structural layout instead of restrictive components to allow overlapping and asymmetric designs.",
+    "For the Registration form, use Shadcn but heavily customize it to look like a Terminal/MS-DOS window (black background, neon green text and borders, monospace font).",
+    "Include 'react-fast-marquee' for scrolling kinetic text.",
+    "Use framer-motion for glitch hover states and scroll-triggered animations.",
+    "Avoid standard rounded corners; use sharp edges (rounded-none).",
+    "Implement high-contrast neo-brutalist shadows (e.g., solid color drop shadows).",
+    "Every interactive element MUST include a data-testid attribute in kebab-case."
+  ]
+}
