@@ -182,7 +182,7 @@ export const StaggeredMenu = ({
 
     openTlRef.current = tl;
     return tl;
-  }, []);
+  }, [position]);
 
   const playOpen = useCallback(() => {
     if (busyRef.current) return;
