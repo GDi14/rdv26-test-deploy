@@ -21,7 +21,7 @@ export default function Footer() {
             <span className="text-[#1C1C2E] dark:text-[#F0EDE6]">{FESTIVAL.tagline}</span>
           </div>
           <div>
-            ◆ DATES
+            ◆ DATE
             <br />
             <span className="text-[#1C1C2E] dark:text-[#F0EDE6]">{FESTIVAL.dates} // {FESTIVAL.year}</span>
           </div>
