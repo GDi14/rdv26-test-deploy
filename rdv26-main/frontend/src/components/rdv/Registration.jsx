@@ -79,19 +79,21 @@ function IndexedStudentRow({ index, student, onChange, onRemove, canRemove, plac
 
 function LabeledStudentRow({ label, student, onChange, canRemove, onRemove }) {
   return (
-    <div className="space-y-1.5">
-      <div className="flex items-center gap-3">
-        <span className="font-mono-rdv text-[10px] text-white/30 w-20 shrink-0">{label}</span>
-        <input value={student.name} onChange={(e) => onChange("name", e.target.value)}
-          placeholder="FULL NAME" className={inputCls} />
-        {canRemove && (
-          <button type="button" onClick={onRemove}
-            className="text-[#fc2c08]/60 hover:text-[#fc2c08] transition-colors p-1 shrink-0">
-            <Minus className="w-4 h-4" />
-          </button>
-        )}
+    <div className="space-y-1.5 border-b border-white/[0.04] pb-3 sm:border-0 sm:pb-0">
+      <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3">
+        <span className="font-mono-rdv text-[10px] text-white/30 w-20 shrink-0 uppercase">{label}</span>
+        <div className="flex items-center gap-2 w-full">
+          <input value={student.name} onChange={(e) => onChange("name", e.target.value)}
+            placeholder="FULL NAME" className={inputCls} />
+          {canRemove && (
+            <button type="button" onClick={onRemove}
+              className="text-[#fc2c08]/60 hover:text-[#fc2c08] transition-colors p-1 shrink-0">
+              <Minus className="w-4 h-4" />
+            </button>
+          )}
+        </div>
       </div>
-      <div className="flex gap-2 ml-[5.5rem]">
+      <div className="flex gap-2 ml-0 sm:ml-[5.5rem]">
         <input value={student.studentClass} onChange={(e) => onChange("studentClass", e.target.value)}
           placeholder="CLASS (e.g. 10)" className={smallInputCls} />
         <input value={student.division} onChange={(e) => onChange("division", e.target.value)}
@@ -601,7 +603,7 @@ export default function Registration() {
                   <form onSubmit={handleVerify} className="space-y-4">
                     <input required type="password" value={schoolCode}
                       onChange={(e) => setSchoolCode(e.target.value)} placeholder="ENTER_SCHOOL_CODE"
-                      className="w-full bg-black border-2 border-[#fc2c08]/40 focus:border-[#fc2c08] outline-none px-6 py-4 font-mono-rdv text-2xl text-center text-[#fc2c08] tracking-[0.5em] placeholder:text-white/10" />
+                      className="w-full bg-black border-2 border-[#fc2c08]/40 focus:border-[#fc2c08] outline-none px-6 py-4 font-mono-rdv text-lg md:text-2xl text-center text-[#fc2c08] tracking-[0.2em] md:tracking-[0.5em] placeholder:text-xs md:placeholder:text-sm placeholder:text-white/10" />
                     <button type="submit" className="w-full bg-[#fc2c08] text-black font-display text-xl py-4 hover:tracking-widest transition-all">
                       VERIFY IDENTITY →
                     </button>

@@ -486,6 +486,12 @@ button {
     transform: none !important;
 }
 
+@media (max-width: 768px) {
+    .rdv-crt-overlay {
+        display: none !important;
+    }
+}
+
 .rdv-crt-overlay>div {
     position: absolute;
     inset: 0;

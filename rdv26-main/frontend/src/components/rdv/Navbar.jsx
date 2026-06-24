@@ -67,8 +67,7 @@ export default function Navbar() {
         padding matches .staggered-menu-header { padding: 2em } at 16px root.
       */}
       <div
-        className="fixed top-0 left-0 z-[51] flex items-center gap-3 pointer-events-none"
-        style={{ padding: "2em" }}
+        className="fixed top-0 left-0 z-[51] flex items-center gap-3 pointer-events-none p-5 md:p-8"
         data-testid="rdv-navbar"
       >
         {/* Brand / logo */}

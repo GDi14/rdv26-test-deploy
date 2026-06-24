@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 export default function ContactPage() {
   return (
-    <main className="relative min-h-screen" data-testid="contact-root">
+    <main className="relative min-h-[100dvh]" data-testid="contact-root">
       <Waves
         lineColor="#7e8db7"
         backgroundColor="transparent"

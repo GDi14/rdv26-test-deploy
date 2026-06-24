@@ -8,7 +8,7 @@ export default function Footer() {
     >
       <div className="max-w-[1400px] mx-auto">
         <h3
-          className="font-display leading-[0.78] tracking-tighter text-[22vw] md:text-[18vw] text-stroke-white dark:text-stroke-white-dark"
+          className="font-display leading-[0.78] tracking-tighter text-[13vw] sm:text-[18vw] text-stroke-white dark:text-stroke-white-dark"
           data-testid="footer-mega"
         >
           {FESTIVAL.name}

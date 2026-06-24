@@ -109,3 +109,18 @@
   background-position: 50% 50%;
   border: 1px solid rgba(28, 28, 46, 0.2);
 }
+
+@media (max-width: 768px) {
+  .menu__item-link {
+    font-size: clamp(1.5rem, 8vw, 2.2rem);
+    padding: 1.8rem 1rem;
+  }
+  .marquee span {
+    font-size: clamp(1.5rem, 8vw, 2.2rem);
+  }
+  .marquee__img {
+    width: clamp(80px, 12vw, 120px);
+    height: clamp(35px, 6vh, 50px);
+    margin: 0.5em 1vw;
+  }
+}

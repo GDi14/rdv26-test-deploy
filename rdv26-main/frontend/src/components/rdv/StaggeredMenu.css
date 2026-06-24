@@ -28,10 +28,16 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 2em;
+  padding: 1.25rem;
   background: transparent;
   pointer-events: none;
   z-index: 20;
+}
+
+@media (min-width: 768px) {
+  .staggered-menu-header {
+    padding: 2em;
+  }
 }
 
 .staggered-menu-header > * {
@@ -347,6 +353,12 @@
 @media (max-width: 1024px) {
   .staggered-menu-panel {
     width: 100%;
+    left: 0;
+    right: 0;
+  }
+
+  .sm-prelayers {
+    width: 100% !important;
     left: 0;
     right: 0;
   }

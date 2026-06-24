@@ -142,7 +142,7 @@ export const EVENTS = [
     ],
     poster: null,
     coordinators: [
-      { role: "TEACHER COORDINATORS", name: "Binil G Edwin", phone: "+91 90371 66080", email: "pooja@rendezvous-rdv.com" },
+      { role: "TEACHER COORDINATORS", name: "Augustinose KJ", phone: "+91 94472 40467", email: "pooja@rendezvous-rdv.com" },
       { role: "STUDENT COORDINATORS", name: "Sreehari S", phone: "+91 88917 65742", email: "aditya@rendezvous-rdv.com" },
       { role: "STUDENT COORDINATORS", name: "Sidhi Vinayak", phone: "+91 73064 72782", email: "sanya@rendezvous-rdv.com" },
     ],

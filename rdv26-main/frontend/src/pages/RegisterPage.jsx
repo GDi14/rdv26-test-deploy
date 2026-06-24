@@ -14,7 +14,7 @@ export default function RegisterPage() {
   const [eventId, setEventId] = useState(initialEventId);
 
   return (
-    <main className="relative min-h-screen" data-testid="register-root">
+    <main className="relative min-h-[100dvh]" data-testid="register-root">
       <Waves
         lineColor="#7e8db7"
         backgroundColor="transparent"

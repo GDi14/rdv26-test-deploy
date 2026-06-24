@@ -12,7 +12,7 @@ export default function EventDetailsDialog({ event, trigger, open, onOpenChange,
       >
         {/* HEADER */}
         <div
-          className="px-6 md:px-8 py-5 border-b flex items-center justify-between"
+          className="px-6 md:px-8 py-5 pr-12 md:pr-16 border-b flex items-center justify-between"
           style={{ borderColor: `${event.color}55` }}
         >
           <div>

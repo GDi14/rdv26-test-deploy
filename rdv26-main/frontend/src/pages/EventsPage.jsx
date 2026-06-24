@@ -13,7 +13,7 @@ export default function EventsPage() {
   };
 
   return (
-    <main className="relative min-h-screen" data-testid="events-root">
+    <main className="relative min-h-[100dvh]" data-testid="events-root">
       <Waves
         lineColor="#7e8db7"
         backgroundColor="transparent"

@@ -7,7 +7,7 @@ export default function GalleryPage() {
   }, []);
 
   return (
-    <main className="relative w-screen h-screen overflow-hidden" data-testid="gallery-root">
+    <main className="relative w-full h-[100dvh] overflow-hidden" data-testid="gallery-root">
       {/* Navbar overlay */}
       <Navbar />
 

@@ -1970,7 +1970,7 @@ class GlobeGallery {
     if (this._lastGridTextureFrame !== this.frameCount) {
       this.updateVideoTextures();
     }
-
+//this shit is insane
     // Continuous hover check
     if (this.pointer.inside && !this.isDragging && this.galleryState === 'grid') {
       this.updateHoveredTile(this.pointer.x, this.pointer.y);

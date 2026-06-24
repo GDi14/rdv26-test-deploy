@@ -64,7 +64,7 @@ export default function Contact() {
             <InfoRow
               icon={<Phone className="w-5 h-5" />}
               label="HOTLINE"
-              value="+91 82819 95645"
+              value="+91 94475 83796"
               testid="info-phone"
             />
 
