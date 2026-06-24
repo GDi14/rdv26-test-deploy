@@ -89,7 +89,7 @@ export const EVENTS = [
     poster: null,
     coordinators: [
       { role: "TEACHER COORDINATOR", name: "Saritha K Gopal", phone: "+91 99618 19567", email: "kabir@rendezvous-rdv.com" },
-      { role: "STUDENT COORDINATOR", name: "Bhadrapriya Aneesh Kumar", phone: "+91 85900 69390", email: "maya@rendezvous-rdv.com" },
+      { role: "STUDENT COORDINATOR", name: "Bhadrapriya Anishkumar", phone: "+91 85900 69390", email: "maya@rendezvous-rdv.com" },
       { role: "STUDENT COORDINATOR", name: "Anujith BS", phone: "+91 62827 02424", email: "dev@rendezvous-rdv.com" },
     ],
   },
@@ -160,6 +160,57 @@ export const FESTIVAL = {
   city: "THIRUVANANTHAPURAM / IN",
   tagline: "FIVE EVENTS. ONE WEEKEND. ONE FREQUENCY.",
 };
+
+export const EVENT_COORDINATORS = [
+  {
+    items: [
+      {
+        role: "MELODIA",
+        people: [
+          { subrole: "TEACHER COORDINATOR", name: "Mrs. Laly Thomas", phone: "+91 94461 55724" },
+          { subrole: "STUDENT COORDINATOR", name: "Khayam Mohammad", phone: "+91 62821 24866" },
+          { subrole: "STUDENT COORDINATOR", name: "Neeraja AS", phone: "+91 79948 00884" },
+        ],
+      },
+      {
+        role: "INVOGUE",
+        people: [
+          { subrole: "TEACHER COORDINATOR", name: "Mrs. Deepa Majulal", phone: "+91 90743 67292" },
+          { subrole: "STUDENT COORDINATOR", name: "Mohammad Aslam", phone: "+91 80751 31338" },
+          { subrole: "STUDENT COORDINATOR", name: "Navami R Chandra", phone: "+91 98953 02933" },
+        ],
+      },
+    ],
+  },
+  {
+    items: [
+      {
+        role: "SEISMIC",
+        people: [
+          { subrole: "TEACHER COORDINATOR", name: "Saritha K Gopal", phone: "+91 99618 19567" },
+          { subrole: "STUDENT COORDINATOR", name: "Bhadrapriya Anishkumar", phone: "+91 85900 69390" },
+          { subrole: "STUDENT COORDINATOR", name: "Anujith BS", phone: "+91 62827 02424" },
+        ],
+      },
+      {
+        role: "GOURMET CRUSADE",
+        people: [
+          { subrole: "TEACHER COORDINATOR", name: "Mrs. Beena Varghese", phone: "+91 94476 97730" },
+          { subrole: "STUDENT COORDINATOR", name: "Joanna Ann Mathew", phone: "+91 94477 90940" },
+          { subrole: "STUDENT COORDINATOR", name: "Bhadra M Nair", phone: "+91 94974 39225" },
+        ],
+      },
+      {
+        role: "GAME F",
+        people: [
+          { subrole: "TEACHER COORDINATOR", name: "Augustinose KJ", phone: "+91 94472 40467" },
+          { subrole: "STUDENT COORDINATOR", name: "Sreehari S", phone: "+91 88917 65742" },
+          { subrole: "STUDENT COORDINATOR", name: "Sidhi Vinayak", phone: "+91 73064 72782" },
+        ],
+      },
+    ],
+  },
+];
 
 export const FAQ = [
   {

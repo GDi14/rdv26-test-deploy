@@ -65,7 +65,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 md:gap-4 text-center md:text-left font-mono-rdv text-xs uppercase tracking-widest text-[#1C1C2E]/80 dark:text-[#D4E5FB]/70 border-y border-[#1C1C2E]/25 dark:border-[#D4E5FB]/15 py-2"
+          className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 md:gap-4 text-left font-mono-rdv text-xs uppercase tracking-widest text-[#1C1C2E]/80 dark:text-[#D4E5FB]/70 border-y border-[#1C1C2E]/25 dark:border-[#D4E5FB]/15 py-2"
           data-testid="hero-meta"
         >
           <span>◉ {FESTIVAL.edition}</span>

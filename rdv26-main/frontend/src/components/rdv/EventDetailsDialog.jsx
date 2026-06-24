@@ -1,5 +1,5 @@
 import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
-import { Phone, ScrollText, Users2 } from "lucide-react";
+import { Phone, ScrollText } from "lucide-react";
 
 export default function EventDetailsDialog({ event, trigger, open, onOpenChange, onRegister }) {
   return (
@@ -38,7 +38,7 @@ export default function EventDetailsDialog({ event, trigger, open, onOpenChange,
         </div>
 
         {/* BODY */}
-        <div className="grid lg:grid-cols-2 gap-px bg-white/10">
+        <div className="bg-white/10">
           {/* MEDIA / POSTER BOX */}
           <div className="flex flex-col gap-px bg-white/10">
             <section className="bg-[#0A0A0A] p-6 border-b border-white/5" style={{ borderColor: `${event.color}33` }}>
@@ -100,45 +100,7 @@ export default function EventDetailsDialog({ event, trigger, open, onOpenChange,
             </section>
           </div>
 
-          <div className="bg-black">
-            {/* COORDINATORS (Taking the full second column) */}
-            <section className="bg-black p-6 md:p-8" data-testid={`event-coordinators-${event.id}`}>
-              <div className="flex items-center gap-2 mb-5 font-mono-rdv text-xs uppercase tracking-widest text-white/60">
-                <Users2 className="w-4 h-4" style={{ color: event.color }} />
-                §COORDINATOR_GRID
-              </div>
-              <div className="space-y-4">
-                {event.coordinators.map((c, i) => (
-                  <div
-                    key={i}
-                    className="border p-4"
-                    style={{ borderColor: `${event.color}55` }}
-                    data-testid={`coordinator-${event.id}-${i}`}
-                  >
-                    <div className="font-mono-rdv text-[10px] uppercase tracking-widest text-white/50 mb-1">
-                      ◆ {c.role}
-                    </div>
-                    <div
-                      className="font-display text-xl md:text-2xl leading-tight mb-2"
-                      style={{ color: event.color }}
-                    >
-                      {c.name}
-                    </div>
-                    <div className="flex flex-col gap-1 font-mono-rdv text-xs text-white/80">
-                      <a
-                        href={`tel:${c.phone.replace(/\s/g, "")}`}
-                        className="inline-flex items-center gap-2 hover:text-white"
-                        data-testid={`coord-phone-${event.id}-${i}`}
-                      >
-                        <Phone className="w-3 h-3" /> {c.phone}
-                      </a>
 
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
-          </div>
         </div>
 
         {/* FOOTER */}

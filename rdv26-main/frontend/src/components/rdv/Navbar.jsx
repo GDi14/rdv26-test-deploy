@@ -19,8 +19,8 @@ const MENU_ITEMS = [
 ];
 
 const SOCIAL_ITEMS = [
-  { label: "Instagram", link: "https://instagram.com" },
-  { label: "YouTube",   link: "https://youtube.com"   },
+  { label: "Instagram", link: "https://www.instagram.com/rendezvous.2026?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" },
+  { label: "YouTube",   link: "https://youtube.com/@rdv.2k26?si=mPQjBNf27ivKSz_b" },
 ];
 
 export default function Navbar() {
