@@ -386,6 +386,44 @@ def submit_contact(payload: ContactCreate):
     return msg
 
 
+@api_router.get("/health")
+def health_check():
+    import time
+    db_status = "UP"
+    latency_ms = 0
+    try:
+        start_time = time.time()
+        # Querying status_checks table to verify Supabase connection
+        supabase_select("status_checks", {"limit": 1})
+        latency_ms = int((time.time() - start_time) * 1000)
+    except Exception as e:
+        logger.error(f"Health Check Database Error: {e}")
+        db_status = f"DOWN: {str(e)}"
+
+    config_status = "OK"
+    missing_vars = []
+    if not SUPABASE_URL:
+        missing_vars.append("SUPABASE_URL")
+    if not SUPABASE_KEY:
+        missing_vars.append("SUPABASE_KEY")
+    if missing_vars:
+        config_status = f"WARNING: Missing env variables: {', '.join(missing_vars)}"
+
+    overall_status = "UP" if db_status == "UP" and not missing_vars else "DEGRADED"
+    if db_status.startswith("DOWN"):
+        overall_status = "DOWN"
+
+    return {
+        "status": overall_status,
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "database": {
+            "status": db_status,
+            "latency_ms": latency_ms
+        },
+        "configuration": config_status
+    }
+
+
 app.include_router(api_router)
 
 app.add_middleware(

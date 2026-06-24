@@ -1,2 +1,8 @@
 /* App.css - intentionally minimal. All styling lives in index.css and Tailwind. */
-.App { min-height: 100vh; }
+.App {
+  min-height: 100vh;
+  overflow-x: hidden;
+  width: 100%;
+  max-width: 100%;
+  position: relative;
+}
