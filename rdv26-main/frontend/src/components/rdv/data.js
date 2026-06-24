@@ -89,8 +89,8 @@ export const EVENTS = [
     poster: null,
     coordinators: [
       { role: "TEACHER COORDINATOR", name: "Saritha K Gopal", phone: "+91 99618 19567", email: "kabir@rendezvous-rdv.com" },
-      { role: "STUDENT COORDINATOR", name: "Bhadrapria Aneesh", phone: "+91 85900 69390", email: "maya@rendezvous-rdv.com" },
-      { role: "STUDENT COORDINATOR", name: "Anujith S", phone: "+91 62827 02424", email: "dev@rendezvous-rdv.com" },
+      { role: "STUDENT COORDINATOR", name: "Bhadrapriya Aneesh Kumar", phone: "+91 85900 69390", email: "maya@rendezvous-rdv.com" },
+      { role: "STUDENT COORDINATOR", name: "Anujith BS", phone: "+91 62827 02424", email: "dev@rendezvous-rdv.com" },
     ],
   },
   {

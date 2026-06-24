@@ -42,8 +42,8 @@ export default function Contact() {
           §04 ── COMMS_CHANNEL
         </div>
         <h2 className="font-display text-6xl md:text-9xl leading-[0.85]">
-          <span className="text-stroke-white">SAY</span>{" "}
-          <span className="text-[#fc2c08]">HI.</span>
+          <span className="text-stroke-white">INQUIRES</span>{" "}
+          <span className="text-[#fc2c08]">.</span>
         </h2>
 
         <div className="mt-12 md:mt-20 grid lg:grid-cols-12 gap-8 md:gap-12">

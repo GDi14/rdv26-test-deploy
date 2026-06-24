@@ -68,7 +68,7 @@ export default function Hero() {
           className="flex flex-col md:flex-row md:items-center md:justify-between gap-2 md:gap-4 text-center md:text-left font-mono-rdv text-xs uppercase tracking-widest text-[#1C1C2E]/80 dark:text-[#D4E5FB]/70 border-y border-[#1C1C2E]/25 dark:border-[#D4E5FB]/15 py-2"
           data-testid="hero-meta"
         >
-          <span>◉ {FESTIVAL.edition} // INTERSCHOOL FESTIVAL</span>
+          <span>◉ {FESTIVAL.edition}</span>
           <span>{FESTIVAL.dates}</span>
           <span>{FESTIVAL.venue}</span>
           <span className="text-[#66C7F4] dark:text-[#D4E5FB]">◆ LIVE_FEED ACTIVE</span>
@@ -114,7 +114,7 @@ export default function Hero() {
             className="md:col-span-6 font-mono-rdv text-sm md:text-base text-[#1C1C2E]/85 dark:text-[#D4E5FB]/75 leading-relaxed max-w-xl"
             data-testid="hero-description"
           >
-            &gt; Rendezvous 2K26 returns for its 4th edition, building on the success of previous years. Hosted by Sarvodaya Vidyalaya, one of Trivandrum’s premier institutions, the fest brings together 19+ schools, 1000+ students, and 50+ teachers, with a digital reach of 100K+ views. It continues to grow as a hub of creativity, collaboration, and innovation—nurturing future leaders and fostering strong interschool connections.
+            &gt; A world beyond the ordinary is about to unfold. Rendezvous 2K26 invites you to step into an arena where imagination knows no boundaries, ambition fuels every challenge, and every moment carries the promise of something extraordinary.
           </motion.p>
 
           <motion.div
