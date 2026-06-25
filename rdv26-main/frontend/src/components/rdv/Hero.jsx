@@ -114,7 +114,7 @@ export default function Hero() {
             className="md:col-span-6 font-mono-rdv text-sm md:text-base text-[#1C1C2E]/85 dark:text-[#D4E5FB]/75 leading-relaxed max-w-xl"
             data-testid="hero-description"
           >
-            &gt; A world beyond the ordinary is about to unfold. Rendezvous 2K26 invites you to step into an arena where imagination knows no boundaries, ambition fuels every challenge, and every moment carries the promise of something extraordinary.
+            &gt; A world beyond the ordinary is about to unfold. Rendezvous 2K26 invites you to step into an arena where imagination knows no boundaries, ambition fuels every challenge and every moment carries the promise of something extraordinary.
           </motion.p>
 
           <motion.div

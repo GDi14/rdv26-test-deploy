@@ -76,7 +76,7 @@ export default function Events({ onRegister }) {
             </h2>
           </div>
           <p className="font-mono-rdv text-sm text-[#1C1C2E]/75 dark:text-[#D4E5FB]/60 max-w-md leading-relaxed">
-            &gt; Choose your arena. Each event features its own judging panel and for those feeling bold, competing across multiple events is highly encouraged.
+            &gt; Choose your arena. Each event features its own judging panel. For those feeling bold competing against multiple events are highly encouraged.
           </p>
         </div>
 
