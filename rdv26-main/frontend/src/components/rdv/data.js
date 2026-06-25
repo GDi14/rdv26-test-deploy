@@ -103,10 +103,10 @@ export const EVENTS = [
     category: "COOKING",
     team_size: 3,
     duration: "90 MIN",
-    prize: "$1,200",
+    prize: "0",
     color: "#5900ff",
     rules: [
-      "The first round consists of 1.5 hours and the second round consists of 30 minutes",
+      "The first round consists of 2 hours and the second round consists of 30 minutes",
       "Each team consists of 2 members",
       "Induction stoves for the competetion will be provided.",
       "Tools and other preferred equipments (knife, plates, cutlery, etc) should be brought. Other than induction stoves, no other electrical appliances are allowed in the competetion.",
@@ -186,7 +186,7 @@ export const EVENT_COORDINATORS = [
       {
         role: "SEISMIC",
         people: [
-          { subrole: "TEACHER COORDINATOR", name: "Saritha K Gopal", phone: "+91 99618 19567" },
+          { subrole: "TEACHER COORDINATOR", name: "Mrs. Saritha K Gopal", phone: "+91 99618 19567" },
           { subrole: "STUDENT COORDINATOR", name: "Bhadrapriya Anishkumar", phone: "+91 85900 69390" },
           { subrole: "STUDENT COORDINATOR", name: "Anujith BS", phone: "+91 62827 02424" },
         ],
@@ -202,7 +202,7 @@ export const EVENT_COORDINATORS = [
       {
         role: "GAME F",
         people: [
-          { subrole: "TEACHER COORDINATOR", name: "Augustinose KJ", phone: "+91 94472 40467" },
+          { subrole: "TEACHER COORDINATOR", name: "Mr. Augustinose KJ", phone: "+91 94472 40467" },
           { subrole: "STUDENT COORDINATOR", name: "Sreehari S", phone: "+91 88917 65742" },
           { subrole: "STUDENT COORDINATOR", name: "Sidhi Vinayak", phone: "+91 73064 72782" },
         ],
