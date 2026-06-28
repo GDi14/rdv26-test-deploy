@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Glitch Cutout Experience</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; touch-action: manipulation; -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+        body, html { width: 100%; height: 100%; background-color: #000; overflow: hidden; font-family: monospace; }
+        
+        #main-canvas {
+            width: 100vw;
+            height: 100vh;
+            display: block;
+            object-fit: cover;
+        }
+
+        #ui-layer {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        #loading {
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 20px 40px;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border: 1px solid #333;
+            transition: opacity 0.5s ease;
+        }
+
+        #instruction {
+            position: absolute;
+            bottom: 40px;
+            background: rgba(0, 0, 0, 0.6);
+            color: #00ffcc;
+            padding: 12px 24px;
+            border-radius: 20px;
+            font-size: 1rem;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 1px solid #00ffcc;
+        }
+
+        .error-msg {
+            background: #0a0a0a; color: #fff; text-align: center; gap: 12px; padding: 24px;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;
+        }
+    </style>
+    <!-- Load MediaPipe Pose -->
+    <script src="https://cdn.jsdelivr.net/npm/@mediapipe/pose@0.5.1675469404/pose.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <canvas id="main-canvas"></canvas>
+    
+    <div id="ui-layer">
+        <div id="loading">Initializing System...</div>
+        <div id="instruction">Raise your hand</div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('main-canvas');
+        const ctx = canvas.getContext('2d', { alpha: false });
+        
+        // Offscreen canvas for compositing the cutout and glitch text
+        const offCanvas = document.createElement('canvas');
+        const offCtx = offCanvas.getContext('2d', { willReadFrequently: true });
+
+        const video = document.createElement('video');
+        video.playsInline = true;
+        video.muted = true;
+        video.autoplay = true;
+
+        let pose;
+        let latestMask = null;
+        let isHandRaised = false;
+        
+        // Persistent canvas to safely store the mask from MediaPipe
+        const maskCanvas = document.createElement('canvas');
+        const maskCtx = maskCanvas.getContext('2d', { willReadFrequently: true });
+        let transitionProgress = 0;
+        const TRANSITION_SPEED = 0.04;
+
+        // Scanline Pattern Setup
+        const scanlineCanvas = document.createElement('canvas');
+        scanlineCanvas.width = 1;
+        scanlineCanvas.height = 4;
+        const sCtx = scanlineCanvas.getContext('2d');
+        sCtx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+        sCtx.fillRect(0, 2, 1, 2);
+        const scanlinePattern = ctx.createPattern(scanlineCanvas, 'repeat');
+
+        // Glitch Text Box Setup
+        const phrases = ["RDV", "ITS THAT TIME OF THE YEAR"];
+        const boxColors = [
+            { bg: '#f10b55', fg: '#000000' }, // Hot Pink
+            { bg: '#c6f600', fg: '#000000' }, // Lime Green
+            { bg: '#a347ff', fg: '#ffffff' }, // Purple
+            { bg: '#ff4d00', fg: '#ffffff' }, // Orange
+            { bg: '#000000', fg: '#c6f600' }, // Black & Lime
+            { bg: '#d9d9d9', fg: '#000000' }  // Light Grey
+        ];
+        let textBoxes = [];
+        let lastGlitchTime = 0;
+
+        function updateTextBoxes(w, h, time) {
+            if (time - lastGlitchTime > 80) {
+                lastGlitchTime = time;
+                textBoxes = [];
+                const numBoxes = 400;
+                
+                for (let i = 0; i < numBoxes; i++) {
+                    textBoxes.push({
+                        text: phrases[Math.floor(Math.random() * phrases.length)],
+                        color: boxColors[Math.floor(Math.random() * boxColors.length)],
+                        x: Math.random() * w,
+                        y: Math.random() * h,
+                        fontSize: 20 + Math.random() * 60
+                    });
+                }
+            }
+        }
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            offCanvas.width = window.innerWidth;
+            offCanvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        function showCameraError(msg) {
+            document.body.innerHTML = `
+                <div class="error-msg">
+                    <div style="font-size:2rem">📷</div>
+                    <p style="font-size:1.1rem;font-weight:600">Camera unavailable</p>
+                    <p style="opacity:0.5;font-size:0.85rem">${msg}</p>
+                    <p style="opacity:0.35;font-size:0.75rem">Please allow camera access and refresh</p>
+                </div>`;
+        }
+
+        async function initCamera() {
+            if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+                showCameraError('Camera API not available');
+                return false;
+            }
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    video: { width: { ideal: 1280 }, height: { ideal: 720 }, facingMode: 'user' }
+                });
+                video.srcObject = stream;
+                await video.play();
+                return true;
+            } catch (e) {
+                showCameraError(e.message);
+                return false;
+            }
+        }
+
+        async function initAI() {
+            pose = new Pose({
+                locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/pose@0.5.1675469404/${file}`
+            });
+            pose.setOptions({
+                modelComplexity: 1,
+                smoothLandmarks: true,
+                enableSegmentation: true,
+                smoothSegmentation: false,
+                minDetectionConfidence: 0.5,
+                minTrackingConfidence: 0.5
+            });
+
+            pose.onResults((results) => {
+                if (results.segmentationMask) {
+                    maskCanvas.width = results.segmentationMask.width;
+                    maskCanvas.height = results.segmentationMask.height;
+                    maskCtx.clearRect(0, 0, maskCanvas.width, maskCanvas.height);
+                    
+                    // Draw the original mask
+                    maskCtx.drawImage(results.segmentationMask, 0, 0);
+                    
+                    // Hard threshold the alpha channel to eliminate fringing completely
+                    const imgData = maskCtx.getImageData(0, 0, maskCanvas.width, maskCanvas.height);
+                    const data = imgData.data;
+                    for (let i = 3; i < data.length; i += 4) {
+                        // Lowered threshold to catch faint pixels (like separated fingers) before they disappear
+                        data[i] = data[i] > 25 ? 255 : 0;
+                    }
+                    maskCtx.putImageData(imgData, 0, 0);
+                    
+                    latestMask = maskCanvas;
+                }
+                
+                let raised = false;
+                if (results.poseLandmarks) {
+                    const lw = results.poseLandmarks[15];
+                    const ls = results.poseLandmarks[11];
+                    const rw = results.poseLandmarks[16];
+                    const rs = results.poseLandmarks[12];
+                    
+                    // Check if wrist is above shoulder (y is 0 at top). Added visibility check and made it more forgiving.
+                    if (lw && lw.visibility > 0.1 && lw.y < ls.y + 0.2) raised = true;
+                    if (rw && rw.visibility > 0.1 && rw.y < rs.y + 0.2) raised = true;
+                }
+                isHandRaised = raised;
+                
+                const inst = document.getElementById('instruction');
+                if (inst) {
+                    inst.innerText = isHandRaised ? "EFFECT ACTIVE" : "Raise your hand";
+                    inst.style.color = isHandRaised ? "#ff00ff" : "#00ffcc";
+                    inst.style.borderColor = isHandRaised ? "#ff00ff" : "#00ffcc";
+                }
+            });
+            
+            // Ensure the model is fully loaded before continuing
+            await pose.initialize();
+        }
+
+        let isDetecting = false;
+        async function detectionLoop() {
+            if (!isDetecting && video.readyState >= 2) {
+                isDetecting = true;
+                try {
+                    await pose.send({ image: video });
+                } catch(e) {
+                    console.error("Pose detection error:", e);
+                }
+                isDetecting = false;
+            }
+            requestAnimationFrame(detectionLoop);
+        }
+
+        // Removed Glitch and FM Background functions
+
+        function calculateObjectFitCover(vidW, vidH, canW, canH) {
+            const vidRatio = vidW / vidH;
+            const canRatio = canW / canH;
+            let drawW, drawH, offsetX = 0, offsetY = 0;
+
+            if (canRatio > vidRatio) {
+                drawW = canW;
+                drawH = canW / vidRatio;
+                offsetY = (canH - drawH) / 2;
+            } else {
+                drawH = canH;
+                drawW = canH * vidRatio;
+                offsetX = (canW - drawW) / 2;
+            }
+            return { drawW, drawH, offsetX, offsetY };
+        }
+
+        function renderLoop() {
+            const w = canvas.width;
+            const h = canvas.height;
+            const time = performance.now();
+
+            // Update transition state (Instant on/off)
+            transitionProgress = isHandRaised ? 1 : 0;
+
+            if (video.readyState >= 2) {
+                const { drawW, drawH, offsetX, offsetY } = calculateObjectFitCover(video.videoWidth, video.videoHeight, w, h);
+
+                // Always draw normal video background
+                ctx.save();
+                ctx.translate(w, 0);
+                ctx.scale(-1, 1); // Mirror
+                ctx.drawImage(video, -offsetX, offsetY, drawW, drawH);
+                ctx.restore();
+
+                // Draw Effect Layer (Text Boxes on Cutout)
+                if (transitionProgress > 0 && latestMask) {
+                    ctx.save();
+                    ctx.globalAlpha = transitionProgress;
+                    
+                    offCtx.globalCompositeOperation = 'source-over';
+                    offCtx.clearRect(0, 0, w, h);
+                    
+                    // 1. Generate text boxes
+                    updateTextBoxes(w, h, time);
+                    
+                    // 2. Draw text boxes to offscreen buffer
+                    offCtx.textAlign = 'center';
+                    offCtx.textBaseline = 'middle';
+                    for (let b of textBoxes) {
+                        offCtx.font = `bold ${b.fontSize}px monospace`;
+                        let metrics = offCtx.measureText(b.text);
+                        let bw = metrics.width + 20;
+                        let bh = b.fontSize + 10;
+                        offCtx.fillStyle = b.color.bg;
+                        offCtx.fillRect(b.x - bw/2, b.y - bh/2, bw, bh);
+                        offCtx.fillStyle = b.color.fg;
+                        offCtx.fillText(b.text, b.x, b.y);
+                    }
+
+                    // 3. Clip the text boxes to the silhouette strictly and sharply
+                    offCtx.globalCompositeOperation = 'destination-in';
+                    offCtx.save();
+                    offCtx.translate(w, 0);
+                    offCtx.scale(-1, 1);
+                    offCtx.imageSmoothingEnabled = false;
+                    offCtx.drawImage(latestMask, -offsetX, offsetY, drawW, drawH);
+                    offCtx.restore();
+
+                    // 4. Draw the clipped result to the main canvas
+                    ctx.drawImage(offCanvas, 0, 0);
+                    ctx.restore();
+                }
+
+                // Draw subtle scanlines over the entire video
+                ctx.save();
+                ctx.fillStyle = scanlinePattern;
+                ctx.fillRect(0, 0, w, h);
+                ctx.restore();
+            }
+
+            requestAnimationFrame(renderLoop);
+        }
+
+        async function start() {
+            const camSuccess = await initCamera();
+            if (!camSuccess) return;
+
+            await initAI();
+            
+            const startExperience = () => {
+                document.getElementById('loading').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('loading').style.display = 'none';
+                    document.getElementById('instruction').style.opacity = '1';
+                }, 500);
+
+                detectionLoop();
+                renderLoop();
+            };
+
+            // Fix race condition: check if video is already ready
+            if (video.readyState >= 2) {
+                startExperience();
+            } else {
+                video.addEventListener('loadeddata', startExperience, { once: true });
+            }
+        }
+
+        start();
+
+    </script>
+</body>
+</html>

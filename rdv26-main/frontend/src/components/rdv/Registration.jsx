@@ -21,14 +21,20 @@ const EVENT_FORM_CONFIG = [
   { id: "seismic",          name: "SEISMIC",         tagline: "DANCE COMPETITION",  color: "#D4E5FB", code: "05", description: "8–12 DANCERS + CHOREOGRAPHER" },
 ];
 
-const blankStudent = () => ({ name: "", studentClass: "", division: "" });
+const validatePhone10 = (phone) => {
+  if (!phone) return false;
+  const digits = phone.replace(/\D/g, "");
+  return digits.length === 10;
+};
+
+const blankStudent = () => ({ name: "", studentClass: "", phone: "" });
 const blankTeacher = () => ({ name: "", phone: "" });
 const patchAt = (arr, idx, field, value) =>
   arr.map((item, i) => (i === idx ? { ...item, [field]: value } : item));
 
 const createInitialEventData = () => ({
   Melodia: { participating: true, members: Array.from({ length: 5 }, blankStudent) },
-  "game f": { participating: true, teams: [Array.from({ length: 2 }, blankStudent), Array.from({ length: 2 }, blankStudent)] },
+  "game f": { participating: true, teams: [Array.from({ length: 2 }, blankStudent)] },
   "gourmet crusade": { participating: true, members: Array.from({ length: 2 }, blankStudent) },
   invogue: {
     participating: true,
@@ -37,7 +43,7 @@ const createInitialEventData = () => ({
       { model: blankStudent(), designers: [blankStudent(), blankStudent()] },
     ],
   },
-  seismic: { participating: true, members: Array.from({ length: 8 }, blankStudent), choreographer: blankStudent() },
+  seismic: { participating: true, members: Array.from({ length: 8 }, blankStudent), choreographer: { phone: "" } },
 });
 
 const inputCls =
@@ -46,7 +52,7 @@ const inputCls =
 const smallInputCls =
   "w-full bg-white/5 border border-white/10 focus:border-[#fc2c08] outline-none px-3 py-2 font-mono-rdv text-[11px] text-white placeholder:text-white/10 uppercase transition-colors";
 
-/* ── Reusable sub-row: name + class + division ── */
+/* ── Reusable sub-row: name + class + phone ── */
 function IndexedStudentRow({ index, student, onChange, onRemove, canRemove, placeholder }) {
   return (
     <div className="space-y-1.5">
@@ -69,9 +75,9 @@ function IndexedStudentRow({ index, student, onChange, onRemove, canRemove, plac
       </div>
       <div className="flex gap-2 ml-9">
         <input value={student.studentClass} onChange={(e) => onChange("studentClass", e.target.value)}
-          placeholder="CLASS (e.g. 10)" className={smallInputCls} />
-        <input value={student.division} onChange={(e) => onChange("division", e.target.value)}
-          placeholder="DIV (e.g. A)" className={`${smallInputCls} max-w-[100px]`} />
+          placeholder="CLASS (e.g. 10)" className={`${smallInputCls} max-w-[120px]`} />
+        <input value={student.phone || ""} onChange={(e) => onChange("phone", e.target.value)}
+          placeholder="PHONE NUMBER" className={smallInputCls} />
       </div>
     </div>
   );
@@ -95,9 +101,9 @@ function LabeledStudentRow({ label, student, onChange, canRemove, onRemove }) {
       </div>
       <div className="flex gap-2 ml-0 sm:ml-[5.5rem]">
         <input value={student.studentClass} onChange={(e) => onChange("studentClass", e.target.value)}
-          placeholder="CLASS (e.g. 10)" className={smallInputCls} />
-        <input value={student.division} onChange={(e) => onChange("division", e.target.value)}
-          placeholder="DIV (e.g. A)" className={`${smallInputCls} max-w-[100px]`} />
+          placeholder="CLASS (e.g. 10)" className={`${smallInputCls} max-w-[120px]`} />
+        <input value={student.phone || ""} onChange={(e) => onChange("phone", e.target.value)}
+          placeholder="PHONE NUMBER" className={smallInputCls} />
       </div>
     </div>
   );
@@ -147,7 +153,10 @@ export default function Registration() {
   const removeNonParticipant = idx => setNonParticipants(prev => prev.filter((_, i) => i !== idx));
 
   const updateTeacher = (idx, field, value) => setTeachers(prev => patchAt(prev, idx, field, value));
-  const addTeacher    = () => setTeachers(prev => [...prev, blankTeacher()]);
+  const addTeacher    = () => setTeachers(prev => {
+    if (prev.length >= 4) return prev;
+    return [...prev, blankTeacher()];
+  });
   const removeTeacher = idx => setTeachers(prev => prev.filter((_, i) => i !== idx));
 
   const populateFormFromRegistrations = (regs) => {
@@ -163,13 +172,11 @@ export default function Registration() {
 
     regs.forEach((r) => {
       let cls = "";
-      let div = "";
       if (r.grade && r.grade !== "N/A" && r.grade !== "TEACHER") {
-        const parts = r.grade.split(" ");
-        if (parts.length > 0) cls = parts[0];
-        if (parts.length > 1) div = parts[1];
+        cls = r.grade;
       }
 
+      const phone = r.phone || "";
       const notes = r.notes || "";
 
       if (r.event_id === "non_participant") {
@@ -181,17 +188,19 @@ export default function Registration() {
         } else if (r.grade === "TEACHER") {
           const m = notes.match(/Teacher\s+(\d+)/i);
           const idx = m ? parseInt(m[1], 10) - 1 : tchs.length;
-          while (tchs.length <= idx) {
-            tchs.push(blankTeacher());
+          if (idx < 4) {
+            while (tchs.length <= idx) {
+              tchs.push(blankTeacher());
+            }
+            tchs[idx] = { name: r.full_name, phone: r.phone || "" };
           }
-          tchs[idx] = { name: r.full_name, phone: r.phone || "" };
         } else {
           const m = notes.match(/Non-Participant\s+(\d+)/i);
           const idx = m ? parseInt(m[1], 10) - 1 : nps.length;
           while (nps.length <= idx) {
             nps.push(blankStudent());
           }
-          nps[idx] = { name: r.full_name, studentClass: cls, division: div };
+          nps[idx] = { name: r.full_name, studentClass: cls, phone };
         }
       } else {
         const evId = r.event_id;
@@ -203,13 +212,16 @@ export default function Registration() {
             while (fresh[evId].members.length <= idx) {
               fresh[evId].members.push(blankStudent());
             }
-            fresh[evId].members[idx] = { name: r.full_name, studentClass: cls, division: div };
+            fresh[evId].members[idx] = { name: r.full_name, studentClass: cls, phone };
           } else if (evId === "game f") {
             const m = notes.match(/Team\s+([A-B])\s+Player\s+(\d+)/i);
             if (m) {
               const ti = m[1].toUpperCase() === "A" ? 0 : 1;
               const pi = parseInt(m[2], 10) - 1;
-              fresh["game f"].teams[ti][pi] = { name: r.full_name, studentClass: cls, division: div };
+              while (fresh["game f"].teams.length <= ti) {
+                fresh["game f"].teams.push(Array.from({ length: 2 }, blankStudent));
+              }
+              fresh["game f"].teams[ti][pi] = { name: r.full_name, studentClass: cls, phone };
             }
           } else if (evId === "invogue") {
             const mM = notes.match(/Model\s+(\d+)/i);
@@ -218,21 +230,21 @@ export default function Registration() {
               const dM = notes.match(/Designer\s+([A-B])/i);
               if (dM) {
                 const di = dM[1].toUpperCase() === "A" ? 0 : 1;
-                fresh.invogue.models[mi].designers[di] = { name: r.full_name, studentClass: cls, division: div };
+                fresh.invogue.models[mi].designers[di] = { name: r.full_name, studentClass: cls, phone };
               } else {
-                fresh.invogue.models[mi].model = { name: r.full_name, studentClass: cls, division: div };
+                fresh.invogue.models[mi].model = { name: r.full_name, studentClass: cls, phone };
               }
             }
           } else if (evId === "seismic") {
             if (notes.toLowerCase().includes("choreographer")) {
-              fresh.seismic.choreographer = { name: r.full_name, studentClass: cls, division: div };
+              fresh.seismic.choreographer = { phone: r.phone || "" };
             } else {
               const m = notes.match(/Dancer\s+(\d+)/i);
               const idx = m ? parseInt(m[1], 10) - 1 : 0;
               while (fresh.seismic.members.length <= idx) {
                 fresh.seismic.members.push(blankStudent());
               }
-              fresh.seismic.members[idx] = { name: r.full_name, studentClass: cls, division: div };
+              fresh.seismic.members[idx] = { name: r.full_name, studentClass: cls, phone };
             }
           }
         }
@@ -242,7 +254,7 @@ export default function Registration() {
     setEventData(fresh);
     setFoodCoupons({ veg, nonVeg });
     setNonParticipants(nps);
-    setTeachers(tchs);
+    setTeachers(tchs.slice(0, 4));
 
     const active = Object.keys(fresh).filter((k) => fresh[k].participating);
     if (active.length > 0) {
@@ -325,6 +337,30 @@ export default function Registration() {
       },
     }));
 
+  const addGameFTeam = () =>
+    setEventData(prev => {
+      if (prev["game f"].teams.length >= 2) return prev;
+      return {
+        ...prev,
+        "game f": {
+          ...prev["game f"],
+          teams: [...prev["game f"].teams, Array.from({ length: 2 }, blankStudent)]
+        }
+      };
+    });
+
+  const removeGameFTeam = () =>
+    setEventData(prev => {
+      if (prev["game f"].teams.length <= 1) return prev;
+      return {
+        ...prev,
+        "game f": {
+          ...prev["game f"],
+          teams: prev["game f"].teams.slice(0, 1)
+        }
+      };
+    });
+
   const updateInvogue = (modelIdx, field, value, designerIdx, subField) =>
     setEventData(prev => ({
       ...prev,
@@ -352,34 +388,148 @@ export default function Registration() {
     const totalStudents         = participantCount + filledNonParticipants;
     if (totalStudents > 50) { toast.error(`TOTAL STUDENTS (${totalStudents}) EXCEEDS THE CAP OF 50`); return; }
 
+    // Validate teachers
+    for (let i = 0; i < teachers.length; i++) {
+      const t = teachers[i];
+      if (t.name.trim()) {
+        if (!validatePhone10(t.phone)) {
+          toast.error(`TEACHER ${i + 1} ("${t.name}") REQUIRES A VALID 10-DIGIT PHONE NUMBER`);
+          return;
+        }
+      }
+    }
+
+    // Validate non-participants
+    for (let i = 0; i < nonParticipants.length; i++) {
+      const n = nonParticipants[i];
+      if (n.name.trim()) {
+        if (!validatePhone10(n.phone)) {
+          toast.error(`NON-PARTICIPANT ${i + 1} ("${n.name}") REQUIRES A VALID 10-DIGIT PHONE NUMBER`);
+          return;
+        }
+      }
+    }
+
     for (const config of EVENT_FORM_CONFIG) {
       const data = eventData[config.id];
       if (!data.participating) continue;
       switch (config.id) {
         case "Melodia": {
-          const filled = data.members.filter(m => m.name.trim()).length;
-          if (filled < 5) { toast.error(`MELODIA REQUIRES AT LEAST 5 MEMBERS (${filled} PROVIDED)`); setExpandedEvent("Melodia"); return; }
+          const filled = data.members.filter(m => m.name.trim());
+          if (filled.length < 5) {
+            toast.error(`MELODIA REQUIRES AT LEAST 5 MEMBERS (${filled.length} PROVIDED)`);
+            setExpandedEvent("Melodia");
+            return;
+          }
+          for (let i = 0; i < data.members.length; i++) {
+            const m = data.members[i];
+            if (m.name.trim()) {
+              if (!validatePhone10(m.phone)) {
+                toast.error(`MELODIA MEMBER ${i + 1} REQUIRES A VALID 10-DIGIT PHONE NUMBER`);
+                setExpandedEvent("Melodia");
+                return;
+              }
+            }
+          }
           break;
         }
         case "game f": {
-          const ok = data.teams.every(t => t.every(p => p.name.trim()));
-          if (!ok) { toast.error("GAME F REQUIRES ALL 4 PLAYER NAMES"); setExpandedEvent("game f"); return; }
+          const totalFilled = data.teams.flat().filter(p => p.name.trim()).length;
+          if (totalFilled === 0) {
+            toast.error("GAME F REQUIRES AT LEAST ONE TEAM (2 PLAYERS)");
+            setExpandedEvent("game f");
+            return;
+          }
+          for (let ti = 0; ti < data.teams.length; ti++) {
+            const team = data.teams[ti];
+            const filled = team.filter(p => p.name.trim());
+            if (filled.length > 0 && filled.length < 2) {
+              toast.error(`GAME F TEAM ${String.fromCharCode(65 + ti)} REQUIRES BOTH PLAYER NAMES`);
+              setExpandedEvent("game f");
+              return;
+            }
+            for (let pi = 0; pi < team.length; pi++) {
+              const p = team[pi];
+              if (p.name.trim()) {
+                if (!validatePhone10(p.phone)) {
+                  toast.error(`GAME F TEAM ${String.fromCharCode(65 + ti)} PLAYER ${pi + 1} REQUIRES A VALID 10-DIGIT PHONE NUMBER`);
+                  setExpandedEvent("game f");
+                  return;
+                }
+              }
+            }
+          }
           break;
         }
         case "gourmet crusade": {
           const ok = data.members.every(m => m.name.trim());
-          if (!ok) { toast.error("GOURMET CRUSADE REQUIRES BOTH MEMBER NAMES"); setExpandedEvent("gourmet crusade"); return; }
+          if (!ok) {
+            toast.error("GOURMET CRUSADE REQUIRES BOTH MEMBER NAMES");
+            setExpandedEvent("gourmet crusade");
+            return;
+          }
+          for (let i = 0; i < data.members.length; i++) {
+            const m = data.members[i];
+            if (!validatePhone10(m.phone)) {
+              toast.error(`GOURMET CRUSADE MEMBER ${i + 1} REQUIRES A VALID 10-DIGIT PHONE NUMBER`);
+              setExpandedEvent("gourmet crusade");
+              return;
+            }
+          }
           break;
         }
         case "invogue": {
           const ok = data.models.every(m => m.model.name.trim() && m.designers.every(d => d.name.trim()));
-          if (!ok) { toast.error("INVOGUE REQUIRES ALL MODEL AND DESIGNER NAMES"); setExpandedEvent("invogue"); return; }
+          if (!ok) {
+            toast.error("INVOGUE REQUIRES ALL MODEL AND DESIGNER NAMES");
+            setExpandedEvent("invogue");
+            return;
+          }
+          for (let mi = 0; mi < data.models.length; mi++) {
+            const m = data.models[mi];
+            if (!validatePhone10(m.model.phone)) {
+              toast.error(`INVOGUE MODEL ${mi + 1} REQUIRES A VALID 10-DIGIT PHONE NUMBER`);
+              setExpandedEvent("invogue");
+              return;
+            }
+            for (let di = 0; di < m.designers.length; di++) {
+              const d = m.designers[di];
+              if (!validatePhone10(d.phone)) {
+                toast.error(`INVOGUE MODEL ${mi + 1} DESIGNER ${String.fromCharCode(65 + di)} REQUIRES A VALID 10-DIGIT PHONE NUMBER`);
+                setExpandedEvent("invogue");
+                return;
+              }
+            }
+          }
           break;
         }
         case "seismic": {
-          const filled = data.members.filter(m => m.name.trim()).length;
-          if (filled < 8) { toast.error(`SEISMIC REQUIRES AT LEAST 8 DANCERS (${filled} PROVIDED)`); setExpandedEvent("seismic"); return; }
-          if (!data.choreographer.name.trim()) { toast.error("SEISMIC REQUIRES A CHOREOGRAPHER NAME"); setExpandedEvent("seismic"); return; }
+          const filled = data.members.filter(m => m.name.trim());
+          if (filled.length < 8) {
+            toast.error(`SEISMIC REQUIRES AT LEAST 8 DANCERS (${filled.length} PROVIDED)`);
+            setExpandedEvent("seismic");
+            return;
+          }
+          if (!data.choreographer.phone.trim()) {
+            toast.error("SEISMIC REQUIRES A CHOREOGRAPHER PHONE NUMBER");
+            setExpandedEvent("seismic");
+            return;
+          }
+          if (!validatePhone10(data.choreographer.phone)) {
+            toast.error("CHOREOGRAPHER REQUIRES A VALID 10-DIGIT PHONE NUMBER");
+            setExpandedEvent("seismic");
+            return;
+          }
+          for (let i = 0; i < data.members.length; i++) {
+            const m = data.members[i];
+            if (m.name.trim()) {
+              if (!validatePhone10(m.phone)) {
+                toast.error(`SEISMIC DANCER ${i + 1} REQUIRES A VALID 10-DIGIT PHONE NUMBER`);
+                setExpandedEvent("seismic");
+                return;
+              }
+            }
+          }
           break;
         }
         default: break;
@@ -393,8 +543,8 @@ export default function Registration() {
         full_name: student.name.trim(),
         school:    schoolName,
         email:     `student${batch.length}@${slug}.com`,
-        phone:     "0000000000",
-        grade:     [student.studentClass, student.division].filter(Boolean).join(" ") || "N/A",
+        phone:     student.phone.trim(),
+        grade:     student.studentClass || "N/A",
         event_id:  evId,
         notes:     `Role: ${role}`,
       });
@@ -417,7 +567,17 @@ export default function Registration() {
           });
         });
       } else if (evId === "seismic") {
-        if (data.choreographer.name.trim()) push(data.choreographer, evId, "Choreographer");
+        if (data.choreographer.phone.trim()) {
+          batch.push({
+            full_name: "CHOREOGRAPHER",
+            school:    schoolName,
+            email:     `choreographer@${slug}.com`,
+            phone:     data.choreographer.phone.trim(),
+            grade:     "N/A",
+            event_id:  evId,
+            notes:     `Role: Choreographer`,
+          });
+        }
         data.members.forEach((m, i) => { if (m.name.trim()) push(m, evId, `Dancer ${i + 1}`); });
       }
     });
@@ -430,7 +590,7 @@ export default function Registration() {
           full_name: t.name.trim(),
           school:    schoolName,
           email:     `teacher${i}@${slug}.com`,
-          phone:     t.phone.trim() || "0000000000",
+          phone:     t.phone.trim(),
           grade:     "TEACHER",
           event_id:  "non_participant",
           notes:     `Role: Teacher ${i + 1}`,
@@ -484,9 +644,17 @@ export default function Registration() {
         return (
           <div className="space-y-6">
             {data.teams.map((team, ti) => (
-              <div key={ti}>
-                <div className="font-mono-rdv text-[10px] uppercase tracking-widest mb-3" style={{ color: config.color }}>
-                  -- TEAM {String.fromCharCode(65 + ti)} --
+              <div key={ti} className="relative border-b border-white/[0.04] pb-6 last:border-0 last:pb-0">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="font-mono-rdv text-[10px] uppercase tracking-widest" style={{ color: config.color }}>
+                    -- TEAM {String.fromCharCode(65 + ti)} --
+                  </div>
+                  {ti === 1 && (
+                    <button type="button" onClick={removeGameFTeam}
+                      className="text-[#fc2c08]/60 hover:text-[#fc2c08] font-mono-rdv text-[10px] uppercase tracking-widest flex items-center gap-1 transition-colors">
+                      <Minus className="w-3.5 h-3.5" /> REMOVE TEAM B
+                    </button>
+                  )}
                 </div>
                 <div className="space-y-4">
                   {team.map((player, pi) => (
@@ -496,6 +664,12 @@ export default function Registration() {
                 </div>
               </div>
             ))}
+            {data.teams.length < 2 && (
+              <button type="button" onClick={addGameFTeam}
+                className="flex items-center gap-2 font-mono-rdv text-[10px] uppercase tracking-widest text-white/40 hover:text-white transition-colors mt-2 border border-dashed border-white/10 hover:border-white/30 w-full py-3 justify-center">
+                <Plus className="w-3.5 h-3.5" /> ADD TEAM B
+              </button>
+            )}
           </div>
         );
 
@@ -537,8 +711,11 @@ export default function Registration() {
         return (
           <div className="space-y-4">
             <div className="font-mono-rdv text-[10px] text-white/40 uppercase tracking-widest mb-2">-- CHOREOGRAPHER --</div>
-            <LabeledStudentRow label="CHOREO." student={data.choreographer}
-              onChange={(f, v) => updateChoreographer(f, v)} canRemove={false} />
+            <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 border-b border-white/[0.04] pb-3 sm:border-0 sm:pb-0">
+              <span className="font-mono-rdv text-[10px] text-white/30 w-20 shrink-0 uppercase">CHOREO. PHONE</span>
+              <input value={data.choreographer.phone || ""} onChange={(e) => updateChoreographer("phone", e.target.value)}
+                placeholder="PHONE NUMBER" className={inputCls} />
+            </div>
             <div className="font-mono-rdv text-[10px] text-white/40 uppercase tracking-widest mb-2 pt-4">-- DANCE CREW (MIN 8 / MAX 12) --</div>
             {data.members.map((member, i) => (
               <IndexedStudentRow key={i} index={i} student={member} placeholder={`DANCER ${i + 1} NAME`}
@@ -774,10 +951,12 @@ export default function Registration() {
                     </div>
                   </div>
                 ))}
-                <button type="button" onClick={addTeacher}
-                  className="flex items-center gap-2 font-mono-rdv text-[10px] uppercase tracking-widest text-white/40 hover:text-white transition-colors mt-2 border border-dashed border-white/10 hover:border-white/30 w-full py-3 justify-center">
-                  <Plus className="w-3.5 h-3.5" /> ADD TEACHER ({teachers.length} ADDED)
-                </button>
+                {teachers.length < 4 && (
+                  <button type="button" onClick={addTeacher}
+                    className="flex items-center gap-2 font-mono-rdv text-[10px] uppercase tracking-widest text-white/40 hover:text-white transition-colors mt-2 border border-dashed border-white/10 hover:border-white/30 w-full py-3 justify-center">
+                    <Plus className="w-3.5 h-3.5" /> ADD TEACHER ({teachers.length}/4 ADDED)
+                  </button>
+                )}
               </div>
             </div>
 

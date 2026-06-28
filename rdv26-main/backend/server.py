@@ -23,7 +23,19 @@ SUPABASE_URL = os.environ.get('SUPABASE_URL', '')
 SUPABASE_KEY = os.environ.get('SUPABASE_KEY', '')
 SUPABASE_SERVICE_ROLE_KEY = os.environ.get('SUPABASE_SERVICE_ROLE_KEY', '')
 
-app = FastAPI()
+# Environment configuration
+ENVIRONMENT = os.environ.get('ENVIRONMENT', 'development')
+
+# Disable Swagger/ReDoc docs and OpenAPI schema in production for security
+app_configs = {}
+if ENVIRONMENT == 'production':
+    app_configs.update({
+        "docs_url": None,
+        "redoc_url": None,
+        "openapi_url": None
+    })
+
+app = FastAPI(**app_configs)
 api_router = APIRouter(prefix="/api")
 
 
