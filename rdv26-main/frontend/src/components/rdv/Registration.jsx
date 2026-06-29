@@ -127,16 +127,16 @@ export default function Registration() {
   const getParticipantCount = () => {
     let c = 0;
     const ev = eventData;
-    if (ev.Melodia?.participating)            c += ev.Melodia.members.filter(m => m.name.trim()).length;
-    if (ev["game f"]?.participating)          c += ev["game f"].teams.flat().filter(p => p.name.trim()).length;
-    if (ev["gourmet crusade"]?.participating) c += ev["gourmet crusade"].members.filter(m => m.name.trim()).length;
+    if (ev.Melodia?.participating)            c += ev.Melodia.members.filter(m => m.name?.trim()).length;
+    if (ev["game f"]?.participating)          c += ev["game f"].teams.flat().filter(p => p.name?.trim()).length;
+    if (ev["gourmet crusade"]?.participating) c += ev["gourmet crusade"].members.filter(m => m.name?.trim()).length;
     if (ev.invogue?.participating) ev.invogue.models.forEach(m => {
-      if (m.model.name.trim()) c++;
-      c += m.designers.filter(d => d.name.trim()).length;
+      if (m.model?.name?.trim()) c++;
+      c += m.designers.filter(d => d.name?.trim()).length;
     });
     if (ev.seismic?.participating) {
-      c += ev.seismic.members.filter(m => m.name.trim()).length;
-      if (ev.seismic.choreographer?.name.trim()) c++;
+      c += ev.seismic.members.filter(m => m.name?.trim()).length;
+      if (ev.seismic.choreographer?.phone?.trim()) c++;
     }
     return c;
   };
@@ -384,14 +384,14 @@ export default function Registration() {
   const handleSubmit = async () => {
     if (participatingCount < 4) { toast.error("MINIMUM 4 EVENTS REQUIRED FOR REGISTRATION"); return; }
     const participantCount      = getParticipantCount();
-    const filledNonParticipants = nonParticipants.filter(n => n.name.trim()).length;
+    const filledNonParticipants = nonParticipants.filter(n => n.name?.trim()).length;
     const totalStudents         = participantCount + filledNonParticipants;
     if (totalStudents > 50) { toast.error(`TOTAL STUDENTS (${totalStudents}) EXCEEDS THE CAP OF 50`); return; }
 
     // Validate teachers
     for (let i = 0; i < teachers.length; i++) {
       const t = teachers[i];
-      if (t.name.trim()) {
+      if (t.name?.trim()) {
         if (!validatePhone10(t.phone)) {
           toast.error(`TEACHER ${i + 1} ("${t.name}") REQUIRES A VALID 10-DIGIT PHONE NUMBER`);
           return;
@@ -402,7 +402,7 @@ export default function Registration() {
     // Validate non-participants
     for (let i = 0; i < nonParticipants.length; i++) {
       const n = nonParticipants[i];
-      if (n.name.trim()) {
+      if (n.name?.trim()) {
         if (!validatePhone10(n.phone)) {
           toast.error(`NON-PARTICIPANT ${i + 1} ("${n.name}") REQUIRES A VALID 10-DIGIT PHONE NUMBER`);
           return;
@@ -415,7 +415,7 @@ export default function Registration() {
       if (!data.participating) continue;
       switch (config.id) {
         case "Melodia": {
-          const filled = data.members.filter(m => m.name.trim());
+          const filled = data.members.filter(m => m.name?.trim());
           if (filled.length < 5) {
             toast.error(`MELODIA REQUIRES AT LEAST 5 MEMBERS (${filled.length} PROVIDED)`);
             setExpandedEvent("Melodia");
@@ -423,7 +423,7 @@ export default function Registration() {
           }
           for (let i = 0; i < data.members.length; i++) {
             const m = data.members[i];
-            if (m.name.trim()) {
+            if (m.name?.trim()) {
               if (!validatePhone10(m.phone)) {
                 toast.error(`MELODIA MEMBER ${i + 1} REQUIRES A VALID 10-DIGIT PHONE NUMBER`);
                 setExpandedEvent("Melodia");
@@ -434,7 +434,7 @@ export default function Registration() {
           break;
         }
         case "game f": {
-          const totalFilled = data.teams.flat().filter(p => p.name.trim()).length;
+          const totalFilled = data.teams.flat().filter(p => p.name?.trim()).length;
           if (totalFilled === 0) {
             toast.error("GAME F REQUIRES AT LEAST ONE TEAM (2 PLAYERS)");
             setExpandedEvent("game f");
@@ -442,7 +442,7 @@ export default function Registration() {
           }
           for (let ti = 0; ti < data.teams.length; ti++) {
             const team = data.teams[ti];
-            const filled = team.filter(p => p.name.trim());
+            const filled = team.filter(p => p.name?.trim());
             if (filled.length > 0 && filled.length < 2) {
               toast.error(`GAME F TEAM ${String.fromCharCode(65 + ti)} REQUIRES BOTH PLAYER NAMES`);
               setExpandedEvent("game f");
@@ -450,7 +450,7 @@ export default function Registration() {
             }
             for (let pi = 0; pi < team.length; pi++) {
               const p = team[pi];
-              if (p.name.trim()) {
+              if (p.name?.trim()) {
                 if (!validatePhone10(p.phone)) {
                   toast.error(`GAME F TEAM ${String.fromCharCode(65 + ti)} PLAYER ${pi + 1} REQUIRES A VALID 10-DIGIT PHONE NUMBER`);
                   setExpandedEvent("game f");
@@ -462,7 +462,7 @@ export default function Registration() {
           break;
         }
         case "gourmet crusade": {
-          const ok = data.members.every(m => m.name.trim());
+          const ok = data.members.every(m => m.name?.trim());
           if (!ok) {
             toast.error("GOURMET CRUSADE REQUIRES BOTH MEMBER NAMES");
             setExpandedEvent("gourmet crusade");
@@ -479,7 +479,7 @@ export default function Registration() {
           break;
         }
         case "invogue": {
-          const ok = data.models.every(m => m.model.name.trim() && m.designers.every(d => d.name.trim()));
+          const ok = data.models.every(m => m.model?.name?.trim() && m.designers.every(d => d.name?.trim()));
           if (!ok) {
             toast.error("INVOGUE REQUIRES ALL MODEL AND DESIGNER NAMES");
             setExpandedEvent("invogue");
@@ -504,25 +504,25 @@ export default function Registration() {
           break;
         }
         case "seismic": {
-          const filled = data.members.filter(m => m.name.trim());
+          const filled = data.members.filter(m => m.name?.trim());
           if (filled.length < 8) {
             toast.error(`SEISMIC REQUIRES AT LEAST 8 DANCERS (${filled.length} PROVIDED)`);
             setExpandedEvent("seismic");
             return;
           }
-          if (!data.choreographer.phone.trim()) {
+          if (!data.choreographer?.phone?.trim()) {
             toast.error("SEISMIC REQUIRES A CHOREOGRAPHER PHONE NUMBER");
             setExpandedEvent("seismic");
             return;
           }
-          if (!validatePhone10(data.choreographer.phone)) {
+          if (!validatePhone10(data.choreographer?.phone)) {
             toast.error("CHOREOGRAPHER REQUIRES A VALID 10-DIGIT PHONE NUMBER");
             setExpandedEvent("seismic");
             return;
           }
           for (let i = 0; i < data.members.length; i++) {
             const m = data.members[i];
-            if (m.name.trim()) {
+            if (m.name?.trim()) {
               if (!validatePhone10(m.phone)) {
                 toast.error(`SEISMIC DANCER ${i + 1} REQUIRES A VALID 10-DIGIT PHONE NUMBER`);
                 setExpandedEvent("seismic");
@@ -540,10 +540,10 @@ export default function Registration() {
     const slug  = schoolName.toLowerCase().replace(/[^a-z0-9]/g, "");
     const push  = (student, evId, role) =>
       batch.push({
-        full_name: student.name.trim(),
+        full_name: (student.name || "").trim(),
         school:    schoolName,
         email:     `student${batch.length}@${slug}.com`,
-        phone:     student.phone.trim(),
+        phone:     (student.phone || "").trim(),
         grade:     student.studentClass || "N/A",
         event_id:  evId,
         notes:     `Role: ${role}`,
@@ -552,22 +552,22 @@ export default function Registration() {
     Object.entries(eventData).forEach(([evId, data]) => {
       if (!data.participating) return;
       if (evId === "Melodia" || evId === "gourmet crusade") {
-        data.members.forEach((m, i) => { if (m.name.trim()) push(m, evId, `Member ${i + 1}`); });
+        data.members.forEach((m, i) => { if (m.name?.trim()) push(m, evId, `Member ${i + 1}`); });
       } else if (evId === "game f") {
         data.teams.forEach((team, ti) =>
           team.forEach((p, pi) => {
-            if (p.name.trim()) push(p, evId, `Team ${String.fromCharCode(65 + ti)} Player ${pi + 1}`);
+            if (p.name?.trim()) push(p, evId, `Team ${String.fromCharCode(65 + ti)} Player ${pi + 1}`);
           })
         );
       } else if (evId === "invogue") {
         data.models.forEach((m, mi) => {
-          if (m.model.name.trim()) push(m.model, evId, `Model ${mi + 1}`);
+          if (m.model?.name?.trim()) push(m.model, evId, `Model ${mi + 1}`);
           m.designers.forEach((d, di) => {
-            if (d.name.trim()) push(d, evId, `Model ${mi + 1} Designer ${String.fromCharCode(65 + di)}`);
+            if (d.name?.trim()) push(d, evId, `Model ${mi + 1} Designer ${String.fromCharCode(65 + di)}`);
           });
         });
       } else if (evId === "seismic") {
-        if (data.choreographer.phone.trim()) {
+        if (data.choreographer?.phone?.trim()) {
           batch.push({
             full_name: "CHOREOGRAPHER",
             school:    schoolName,
@@ -578,19 +578,19 @@ export default function Registration() {
             notes:     `Role: Choreographer`,
           });
         }
-        data.members.forEach((m, i) => { if (m.name.trim()) push(m, evId, `Dancer ${i + 1}`); });
+        data.members.forEach((m, i) => { if (m.name?.trim()) push(m, evId, `Dancer ${i + 1}`); });
       }
     });
 
-    nonParticipants.forEach((n, i) => { if (n.name.trim()) push(n, "non_participant", `Non-Participant ${i + 1}`); });
+    nonParticipants.forEach((n, i) => { if (n.name?.trim()) push(n, "non_participant", `Non-Participant ${i + 1}`); });
 
     teachers.forEach((t, i) => {
-      if (t.name.trim())
+      if (t.name?.trim())
         batch.push({
           full_name: t.name.trim(),
           school:    schoolName,
           email:     `teacher${i}@${slug}.com`,
-          phone:     t.phone.trim(),
+          phone:     (t.phone || "").trim(),
           grade:     "TEACHER",
           event_id:  "non_participant",
           notes:     `Role: Teacher ${i + 1}`,
@@ -925,7 +925,7 @@ export default function Registration() {
                   <Terminal className="w-4 h-4" /> §TEACHERS / ESCORTS
                 </div>
                 <div className="font-mono-rdv text-xs text-white/40 uppercase tracking-widest">
-                  {teachers.filter(t => t.name.trim()).length} TEACHER{teachers.filter(t => t.name.trim()).length !== 1 ? "S" : ""} ADDED
+                  {teachers.filter(t => t.name?.trim()).length} TEACHER{teachers.filter(t => t.name?.trim()).length !== 1 ? "S" : ""} ADDED
                 </div>
               </div>
               <p className="font-mono-rdv text-[10px] text-white/30 uppercase tracking-widest mb-6">
