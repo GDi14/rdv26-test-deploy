@@ -754,6 +754,14 @@ export default function Registration() {
                 &gt; Authorized registration only. Each school is assigned a unique access code.
                 Please contact the RDV admin if your code is missing.
               </p>
+              <div className="mt-6 border border-amber-500/30 bg-amber-500/5 p-4 font-mono-rdv text-xs text-amber-600 dark:text-amber-200/90 leading-relaxed shadow-[2px_2px_0_0_rgba(245,158,11,0.1)]">
+                <div className="text-amber-700 dark:text-amber-400 font-bold uppercase mb-1 tracking-widest">
+                  [!] DISCLAIMER & LIABILITY NOTICE
+                </div>
+                PLEASE ENSURE ALL NAMES AND DELEGATION DETAILS ARE ENTERED AS ACCURATELY AS POSSIBLE. 
+                THE HOST ORGANIZERS SHALL NOT BE HELD LIABLE FOR ANY SPELLING ERRORS, INCORRECT DETAILS, 
+                OR SYSTEMIC MISMATCHES SUBMITTED DURING THIS ENROLLMENT PROCESS.
+              </div>
               <div className="mt-8 relative bg-[#1C1C2E] border border-[#05998c]/40 p-4 md:p-5 scanlines crt-flicker">
                 <div className="flex items-center gap-2 mb-3 font-mono-rdv text-[10px] text-[#05998c] uppercase tracking-widest">
                   <span className="w-2 h-2 bg-[#05998c] inline-block" />
@@ -830,6 +838,12 @@ export default function Registration() {
               <p className="font-mono-rdv text-[10px] text-white/30 uppercase tracking-widest mt-3">
                 &gt; Each school must participate in at least 4 out of 5 events. Toggle events on/off and fill in team rosters below.
               </p>
+            </div>
+
+            {/* DISCLAIMER NOTICE */}
+            <div className="border border-amber-500/30 bg-amber-500/5 p-4 font-mono-rdv text-xs text-amber-200/90 leading-relaxed shadow-[2px_2px_0_0_rgba(245,158,11,0.1)]">
+              <span className="text-amber-400 font-bold tracking-widest uppercase block mb-1">§ NOTICE_OF_LIABILITY:</span>
+              PLEASE DOUBLE-CHECK ALL RAMP MODELS, BAND MEMBERS, AND DELEGATE NAMES FOR SPELLING ACCURACY. THE HOST SHALL NOT BE HELD LIABLE FOR ANY CLERICAL OR SPELLING MISTAKES SUBMITTED.
             </div>
 
             {/* EVENT ACCORDION */}
