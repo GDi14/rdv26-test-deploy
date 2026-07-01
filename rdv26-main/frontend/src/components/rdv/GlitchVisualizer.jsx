@@ -31,7 +31,7 @@ const phrases = [
 ];
 
 const boxColors = [
-  { bg: '#fc2c08', fg: '#ffffff' }, // RDV Red
+  { bg: '#05998c', fg: '#ffffff' }, // RDV Red
   { bg: '#f10b55', fg: '#000000' }, // Hot Pink
   { bg: '#c6f600', fg: '#000000' }, // Lime Green
   { bg: '#a347ff', fg: '#ffffff' }, // Purple
@@ -372,7 +372,7 @@ export default function GlitchVisualizer() {
       <div className="relative z-10 flex flex-col gap-6">
         <div className="flex items-center justify-between flex-wrap gap-4 border-b border-[#1C1C2E]/10 dark:border-[#F0EDE6]/10 pb-4">
           <div className="flex items-center gap-3">
-            <span className={`inline-block w-2.5 h-2.5 rounded-full ${status === "ACTIVE" ? "bg-emerald-500 animate-pulse" : "bg-[#fc2c08]"}`} />
+            <span className={`inline-block w-2.5 h-2.5 rounded-full ${status === "ACTIVE" ? "bg-emerald-500 animate-pulse" : "bg-[#05998c]"}`} />
             <div className="text-xs uppercase tracking-widest font-bold text-[#1C1C2E] dark:text-[#F0EDE6]">
               ◆ INTERACTIVE_VISUAL_DAEMON // STATUS_{status}
             </div>
@@ -384,7 +384,7 @@ export default function GlitchVisualizer() {
 
         {status === "STANDBY" && (
           <div className="flex flex-col items-center justify-center py-12 text-center max-w-xl mx-auto space-y-6">
-            <Camera className="w-12 h-12 text-[#fc2c08] opacity-75" />
+            <Camera className="w-12 h-12 text-[#05998c] opacity-75" />
             <div className="space-y-2">
               <h4 className="text-sm font-bold uppercase tracking-widest text-[#1C1C2E] dark:text-[#F0EDE6]">INITIATE NEURAL SCREENING</h4>
               <p className="text-xs text-[#1C1C2E]/60 dark:text-[#F0EDE6]/50 uppercase tracking-wider leading-relaxed">
@@ -393,7 +393,7 @@ export default function GlitchVisualizer() {
             </div>
             <button
               onClick={handleStart}
-              className="border border-[#fc2c08] text-[#fc2c08] hover:bg-[#fc2c08] hover:text-black transition-all px-6 py-3 font-mono-rdv text-xs uppercase tracking-widest"
+              className="border border-[#05998c] text-[#05998c] hover:bg-[#05998c] hover:text-black transition-all px-6 py-3 font-mono-rdv text-xs uppercase tracking-widest"
             >
               [ INITIATE NEURAL SCANNER ]
             </button>
@@ -402,7 +402,7 @@ export default function GlitchVisualizer() {
 
         {status === "LOADING" && (
           <div className="flex flex-col items-center justify-center py-16 space-y-4">
-            <RefreshCw className="w-8 h-8 text-[#fc2c08] animate-spin" />
+            <RefreshCw className="w-8 h-8 text-[#05998c] animate-spin" />
             <div className="text-xs uppercase tracking-widest text-[#1C1C2E]/70 dark:text-[#F0EDE6]/60">
               Initializing MediaPipe AI models & webcam feed...
             </div>
@@ -423,7 +423,7 @@ export default function GlitchVisualizer() {
               <div className="self-center">
                 <div className={`px-4 py-2 border rounded-full text-xs uppercase font-bold tracking-widest backdrop-blur-md transition-all duration-300 ${
                   isHandRaised 
-                    ? "bg-[#fc2c08]/20 border-[#fc2c08] text-[#fc2c08] animate-pulse" 
+                    ? "bg-[#05998c]/20 border-[#05998c] text-[#05998c] animate-pulse" 
                     : "bg-black/60 border-[#00ffcc] text-[#00ffcc]"
                 }`}>
                   {isHandRaised ? "NEURAL_EFFECT: ACTIVE" : "RAISE YOUR HAND TO ENGAGE"}
@@ -446,7 +446,7 @@ export default function GlitchVisualizer() {
               </button>
               <button
                 onClick={handleStop}
-                className="bg-black/80 hover:bg-[#fc2c08] hover:text-black border border-white/20 text-white transition-all px-3 py-1.5 font-mono-rdv text-[9px] uppercase tracking-wider"
+                className="bg-black/80 hover:bg-[#05998c] hover:text-black border border-white/20 text-white transition-all px-3 py-1.5 font-mono-rdv text-[9px] uppercase tracking-wider"
               >
                 [ SHUTDOWN ]
               </button>
@@ -456,9 +456,9 @@ export default function GlitchVisualizer() {
 
         {status === "ERROR" && (
           <div className="flex flex-col items-center justify-center py-12 text-center max-w-xl mx-auto space-y-6">
-            <AlertTriangle className="w-12 h-12 text-[#fc2c08]" />
+            <AlertTriangle className="w-12 h-12 text-[#05998c]" />
             <div className="space-y-2">
-              <h4 className="text-sm font-bold uppercase tracking-widest text-[#fc2c08]">HARDWARE / COMPILING ERROR</h4>
+              <h4 className="text-sm font-bold uppercase tracking-widest text-[#05998c]">HARDWARE / COMPILING ERROR</h4>
               <p className="text-xs text-white/40 uppercase tracking-widest leading-relaxed">
                 {errorMsg}
               </p>
@@ -472,7 +472,7 @@ export default function GlitchVisualizer() {
               </button>
               <button
                 onClick={() => setStatus("STANDBY")}
-                className="border border-[#fc2c08] text-[#fc2c08] hover:bg-[#fc2c08] hover:text-black transition-all px-4 py-2.5 font-mono-rdv text-xs uppercase tracking-widest"
+                className="border border-[#05998c] text-[#05998c] hover:bg-[#05998c] hover:text-black transition-all px-4 py-2.5 font-mono-rdv text-xs uppercase tracking-widest"
               >
                 RETURN
               </button>

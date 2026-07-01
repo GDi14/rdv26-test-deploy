@@ -418,7 +418,7 @@
 }
 
 .sm-panel-item:hover {
-  color: var(--sm-accent, #fc2c08);
+  color: var(--sm-accent, #05998c);
 }
 
 /* Socials use site mono font */
@@ -440,7 +440,7 @@
   font-size: 0.7rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--sm-accent, #fc2c08);
+  color: var(--sm-accent, #05998c);
 }
 
 /* toggle button font */
@@ -458,6 +458,6 @@
 
 /* numbered counter uses accent colour */
 .sm-panel-list[data-numbering] .sm-panel-item::after {
-  color: var(--sm-accent, #fc2c08);
+  color: var(--sm-accent, #05998c);
   font-family: 'JetBrains Mono', monospace;
 }

@@ -14,7 +14,7 @@ export default function Events({ onRegister }) {
     switch (e.id) {
       case "Melodia":
         image = "https://i.pinimg.com/736x/b6/0d/07/b60d07e00a657cfef5f94e737527ccad.jpg";
-        marqueeBgColor = "#fc2c08";
+        marqueeBgColor = "#05998c";
         break;
       case "invogue":
         image = "https://i.pinimg.com/736x/34/0f/63/340f6311462902c61c927004cdd869bb.jpg";

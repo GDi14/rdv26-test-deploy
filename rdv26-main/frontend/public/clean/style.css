@@ -201,13 +201,13 @@ html, body {
 /* Inactive LIST button color */
 #view-list:not(.active),
 #view-list:not(.active):hover {
-  color: #fc2c08;
+  color: #05998c;
 }
 
 /* Inactive GRID button color */
 #view-grid:not(.active),
 #view-grid:not(.active):hover {
-  color: #fc2c08;
+  color: #05998c;
 }
 
 .capsule-divider {

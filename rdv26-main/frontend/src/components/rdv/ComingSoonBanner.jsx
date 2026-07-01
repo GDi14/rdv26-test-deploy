@@ -10,9 +10,9 @@ export default function ComingSoonBanner() {
       <div className="absolute inset-0 pointer-events-none opacity-30 bg-[linear-gradient(rgba(0,0,0,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(252,44,8,0.06),rgba(0,0,0,0))] bg-[size:100%_4px,6px_100%]" />
 
       {/* Header HUD */}
-      <div className="relative z-10 flex items-center justify-between border-b border-[#fc2c08]/20 pb-4 text-xs uppercase tracking-widest">
+      <div className="relative z-10 flex items-center justify-between border-b border-[#05998c]/20 pb-4 text-xs uppercase tracking-widest">
         <div className="flex items-center gap-3">
-          <span className="inline-block w-2 h-2 rounded-full bg-[#fc2c08] animate-ping" />
+          <span className="inline-block w-2 h-2 rounded-full bg-[#05998c] animate-ping" />
           <span className="font-bold text-white">SYS_MODE // OFFLINE_RECOVERY</span>
         </div>
         <div className="hidden sm:block text-white/40">
@@ -28,7 +28,7 @@ export default function ComingSoonBanner() {
           transition={{ duration: 0.8 }}
           className="flex flex-col items-center space-y-4"
         >
-          <div className="flex items-center gap-2 text-[#fc2c08] bg-[#fc2c08]/10 border border-[#fc2c08]/30 px-3 py-1 text-[10px] tracking-[0.2em] uppercase font-bold">
+          <div className="flex items-center gap-2 text-[#05998c] bg-[#05998c]/10 border border-[#05998c]/30 px-3 py-1 text-[10px] tracking-[0.2em] uppercase font-bold">
             <AlertTriangle className="w-3.5 h-3.5" /> ACCESS_RESTRICTED
           </div>
           
@@ -39,7 +39,7 @@ export default function ComingSoonBanner() {
 
         {/* Glitch Coming Soon block */}
         <div className="relative border border-white/10 bg-white/[0.02] p-8 md:p-12 w-full max-w-2xl backdrop-blur-sm">
-          <div className="absolute top-0 left-0 bg-[#fc2c08] text-black text-[9px] px-2 py-0.5 font-bold tracking-widest">
+          <div className="absolute top-0 left-0 bg-[#05998c] text-black text-[9px] px-2 py-0.5 font-bold tracking-widest">
             STATUS_CODE: 303
           </div>
           <div className="absolute bottom-0 right-0 border-r border-b border-white/40 w-4 h-4" />
@@ -66,7 +66,7 @@ export default function ComingSoonBanner() {
 
         {/* Additional decorative status info */}
         <div className="flex items-center gap-3 text-[10px] text-white/40 uppercase tracking-widest">
-          <Terminal className="w-3.5 h-3.5 text-[#fc2c08]" />
+          <Terminal className="w-3.5 h-3.5 text-[#05998c]" />
           <span>INITIALIZING: {FESTIVAL.dates} // {FESTIVAL.venue}</span>
         </div>
       </div>

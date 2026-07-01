@@ -16,7 +16,7 @@ export default function Contact() {
         </div>
         <h2 className="font-display text-6xl md:text-9xl leading-[0.85]">
           <span className="text-stroke-white">CONTACTS</span>{" "}
-          <span className="text-[#fc2c08]">.</span>
+          <span className="text-[#05998c]">.</span>
         </h2>
 
         <div className="mt-12 md:mt-20 space-y-4 md:space-y-6">

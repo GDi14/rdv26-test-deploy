@@ -14,7 +14,7 @@ const BOOT_LINES = [
 ];
 
 const EVENT_FORM_CONFIG = [
-  { id: "Melodia",          name: "MELODIA",        tagline: "BAND COMPETITION",   color: "#fc2c08", code: "01", description: "MIN 5 — MAX 10 MEMBERS" },
+  { id: "Melodia",          name: "MELODIA",        tagline: "BAND COMPETITION",   color: "#05998c", code: "01", description: "MIN 5 — MAX 10 MEMBERS" },
   { id: "game f",           name: "GAME F",          tagline: "GAMING COMPETITION", color: "#D9D2C4", code: "02", description: "2 TEAMS × 2 PLAYERS" },
   { id: "gourmet crusade",  name: "GOURMET CRUSADE", tagline: "COOK OFF",           color: "#5900ff", code: "03", description: "1 TEAM × 2 MEMBERS" },
   { id: "invogue",          name: "INVOGUE",         tagline: "FASHION × DESIGN",   color: "#66C7F4", code: "04", description: "2 MODELS + 4 DESIGNERS" },
@@ -47,10 +47,10 @@ const createInitialEventData = () => ({
 });
 
 const inputCls =
-  "w-full bg-white/5 border border-white/10 focus:border-[#fc2c08] outline-none px-4 py-3 font-mono-rdv text-sm text-white placeholder:text-white/10 uppercase transition-colors";
+  "w-full bg-white/5 border border-white/10 focus:border-[#05998c] outline-none px-4 py-3 font-mono-rdv text-sm text-white placeholder:text-white/10 uppercase transition-colors";
 
 const smallInputCls =
-  "w-full bg-white/5 border border-white/10 focus:border-[#fc2c08] outline-none px-3 py-2 font-mono-rdv text-[11px] text-white placeholder:text-white/10 uppercase transition-colors";
+  "w-full bg-white/5 border border-white/10 focus:border-[#05998c] outline-none px-3 py-2 font-mono-rdv text-[11px] text-white placeholder:text-white/10 uppercase transition-colors";
 
 /* ── Reusable sub-row: name + class + phone ── */
 function IndexedStudentRow({ index, student, onChange, onRemove, canRemove, placeholder }) {
@@ -68,7 +68,7 @@ function IndexedStudentRow({ index, student, onChange, onRemove, canRemove, plac
         />
         {canRemove && (
           <button type="button" onClick={onRemove}
-            className="text-[#fc2c08]/60 hover:text-[#fc2c08] transition-colors p-1 shrink-0">
+            className="text-[#05998c]/60 hover:text-[#05998c] transition-colors p-1 shrink-0">
             <Minus className="w-4 h-4" />
           </button>
         )}
@@ -93,7 +93,7 @@ function LabeledStudentRow({ label, student, onChange, canRemove, onRemove }) {
             placeholder="FULL NAME" className={inputCls} />
           {canRemove && (
             <button type="button" onClick={onRemove}
-              className="text-[#fc2c08]/60 hover:text-[#fc2c08] transition-colors p-1 shrink-0">
+              className="text-[#05998c]/60 hover:text-[#05998c] transition-colors p-1 shrink-0">
               <Minus className="w-4 h-4" />
             </button>
           )}
@@ -651,7 +651,7 @@ export default function Registration() {
                   </div>
                   {ti === 1 && (
                     <button type="button" onClick={removeGameFTeam}
-                      className="text-[#fc2c08]/60 hover:text-[#fc2c08] font-mono-rdv text-[10px] uppercase tracking-widest flex items-center gap-1 transition-colors">
+                      className="text-[#05998c]/60 hover:text-[#05998c] font-mono-rdv text-[10px] uppercase tracking-widest flex items-center gap-1 transition-colors">
                       <Minus className="w-3.5 h-3.5" /> REMOVE TEAM B
                     </button>
                   )}
@@ -748,20 +748,20 @@ export default function Registration() {
                 <span className="text-chrome">CLAIM</span>{" "}
                 <span className="text-stroke-acid">YOUR</span>
                 <br />
-                <span className="text-[#fc2c08]">SLOT.</span>
+                <span className="text-[#05998c]">SLOT.</span>
               </h2>
               <p className="font-mono-rdv text-sm text-[#1C1C2E]/75 dark:text-[#D4E5FB]/60 mt-6 max-w-md leading-relaxed">
                 &gt; Authorized registration only. Each school is assigned a unique access code.
                 Please contact the RDV admin if your code is missing.
               </p>
-              <div className="mt-8 relative bg-[#1C1C2E] border border-[#fc2c08]/40 p-4 md:p-5 scanlines crt-flicker">
-                <div className="flex items-center gap-2 mb-3 font-mono-rdv text-[10px] text-[#fc2c08] uppercase tracking-widest">
-                  <span className="w-2 h-2 bg-[#fc2c08] inline-block" />
-                  <span className="w-2 h-2 bg-[#fc2c08] inline-block" />
+              <div className="mt-8 relative bg-[#1C1C2E] border border-[#05998c]/40 p-4 md:p-5 scanlines crt-flicker">
+                <div className="flex items-center gap-2 mb-3 font-mono-rdv text-[10px] text-[#05998c] uppercase tracking-widest">
+                  <span className="w-2 h-2 bg-[#05998c] inline-block" />
+                  <span className="w-2 h-2 bg-[#05998c] inline-block" />
                   <Terminal className="w-3 h-3 ml-2" />
                   <span className="ml-1">auth_daemon.log</span>
                 </div>
-                <div className="font-mono-rdv text-xs text-[#fc2c08] leading-6 min-h-[120px]">
+                <div className="font-mono-rdv text-xs text-[#05998c] leading-6 min-h-[120px]">
                   {BOOT_LINES.slice(0, 3).map((l, i) => (
                     <div key={i} className="boot-line">{l}</div>
                   ))}
@@ -769,10 +769,10 @@ export default function Registration() {
               </div>
             </div>
             <div className="lg:col-span-8">
-              <div className="relative bg-[#0A0A0A] border border-[#fc2c08]/20 p-6 md:p-8 scanlines overflow-hidden shadow-brutal-pink">
+              <div className="relative bg-[#0A0A0A] border border-[#05998c]/20 p-6 md:p-8 scanlines overflow-hidden shadow-brutal-pink">
                 <div className="absolute top-0 right-0 p-2 opacity-5"><ShieldCheck size={120} /></div>
                 <div className="max-w-md mx-auto py-12 text-center">
-                  <ShieldCheck className="w-16 h-16 text-[#fc2c08] mx-auto mb-6 animate-pulse" />
+                  <ShieldCheck className="w-16 h-16 text-[#05998c] mx-auto mb-6 animate-pulse" />
                   <h3 className="font-display text-4xl text-white mb-4">SECURITY CHECK</h3>
                   <p className="font-mono-rdv text-sm text-white/50 mb-8">
                     PLEASE ENTER YOUR OFFICIAL SCHOOL ACCESS CODE TO PROCEED WITH REGISTRATION.
@@ -780,8 +780,8 @@ export default function Registration() {
                   <form onSubmit={handleVerify} className="space-y-4">
                     <input required type="password" value={schoolCode}
                       onChange={(e) => setSchoolCode(e.target.value)} placeholder="ENTER_SCHOOL_CODE"
-                      className="w-full bg-black border-2 border-[#fc2c08]/40 focus:border-[#fc2c08] outline-none px-6 py-4 font-mono-rdv text-lg md:text-2xl text-center text-[#fc2c08] tracking-[0.2em] md:tracking-[0.5em] placeholder:text-xs md:placeholder:text-sm placeholder:text-white/10" />
-                    <button type="submit" className="w-full bg-[#fc2c08] text-black font-display text-xl py-4 hover:tracking-widest transition-all">
+                      className="w-full bg-black border-2 border-[#05998c]/40 focus:border-[#05998c] outline-none px-6 py-4 font-mono-rdv text-lg md:text-2xl text-center text-[#05998c] tracking-[0.2em] md:tracking-[0.5em] placeholder:text-xs md:placeholder:text-sm placeholder:text-white/10" />
+                    <button type="submit" className="w-full bg-[#05998c] text-black font-display text-xl py-4 hover:tracking-widest transition-all">
                       VERIFY IDENTITY →
                     </button>
                   </form>
@@ -792,9 +792,9 @@ export default function Registration() {
         ) : (
           <div className="space-y-6">
             {/* DASHBOARD HEADER */}
-            <div className="flex flex-wrap items-center justify-between gap-4 bg-[#0A0A0A] border border-[#fc2c08]/40 p-4 md:p-6 shadow-brutal-pink scanlines">
+            <div className="flex flex-wrap items-center justify-between gap-4 bg-[#0A0A0A] border border-[#05998c]/40 p-4 md:p-6 shadow-brutal-pink scanlines">
               <div>
-                <div className="font-mono-rdv text-xs text-[#fc2c08] uppercase tracking-widest mb-1.5">
+                <div className="font-mono-rdv text-xs text-[#05998c] uppercase tracking-widest mb-1.5">
                   ◆ OPERATOR_SESSION // SESSION_{sessionId}
                 </div>
                 <h2 className="font-display text-2xl md:text-4xl text-white">{schoolName.toUpperCase()}</h2>
@@ -805,26 +805,26 @@ export default function Registration() {
                   <div>CODE: {schoolCode}</div>
                 </div>
                 <button onClick={handleLogout}
-                  className="flex items-center gap-2 border border-[#fc2c08] text-[#fc2c08] hover:bg-[#fc2c08] hover:text-black transition-colors px-4 py-2 font-mono-rdv text-xs uppercase tracking-widest">
+                  className="flex items-center gap-2 border border-[#05998c] text-[#05998c] hover:bg-[#05998c] hover:text-black transition-colors px-4 py-2 font-mono-rdv text-xs uppercase tracking-widest">
                   <LogOut className="w-4 h-4" /> DISCONNECT
                 </button>
               </div>
             </div>
 
             {/* EVENT STATUS BAR */}
-            <div className={`bg-[#0A0A0A] border p-4 md:p-5 scanlines ${participatingCount >= 4 ? "border-emerald-500/40" : "border-[#fc2c08]/40"}`}>
+            <div className={`bg-[#0A0A0A] border p-4 md:p-5 scanlines ${participatingCount >= 4 ? "border-emerald-500/40" : "border-[#05998c]/40"}`}>
               <div className="flex items-center justify-between flex-wrap gap-3">
                 <div className="flex items-center gap-3">
                   <Terminal className="w-4 h-4 text-white/60" />
                   <span className="font-mono-rdv text-xs text-white/60 uppercase tracking-widest">§EVENT_REGISTRATION</span>
                 </div>
-                <div className={`font-mono-rdv text-xs uppercase tracking-widest ${participatingCount >= 4 ? "text-emerald-400" : "text-[#fc2c08]"}`}>
+                <div className={`font-mono-rdv text-xs uppercase tracking-widest ${participatingCount >= 4 ? "text-emerald-400" : "text-[#05998c]"}`}>
                   {participatingCount}/5 EVENTS SELECTED
                   {participatingCount >= 4 ? " ✓ READY" : ` — ${4 - participatingCount} MORE REQUIRED`}
                 </div>
               </div>
               <div className="mt-3 h-1 bg-white/5 overflow-hidden">
-                <div className={`h-full transition-all duration-500 ${participatingCount >= 4 ? "bg-emerald-500" : "bg-[#fc2c08]"}`}
+                <div className={`h-full transition-all duration-500 ${participatingCount >= 4 ? "bg-emerald-500" : "bg-[#05998c]"}`}
                   style={{ width: `${(participatingCount / 5) * 100}%` }} />
               </div>
               <p className="font-mono-rdv text-[10px] text-white/30 uppercase tracking-widest mt-3">
@@ -894,7 +894,7 @@ export default function Registration() {
                 <div className="flex items-center gap-2 font-mono-rdv text-xs text-white uppercase tracking-widest">
                   <Terminal className="w-4 h-4" /> §NON_PARTICIPANTS
                 </div>
-                <div className={`font-mono-rdv text-xs uppercase tracking-widest ${getParticipantCount() + nonParticipants.length > 50 ? "text-[#fc2c08]" : "text-white/60"}`}>
+                <div className={`font-mono-rdv text-xs uppercase tracking-widest ${getParticipantCount() + nonParticipants.length > 50 ? "text-[#05998c]" : "text-white/60"}`}>
                   TOTAL DELEGATION: {getParticipantCount() + nonParticipants.length}/50
                 </div>
               </div>
@@ -941,7 +941,7 @@ export default function Registration() {
                       <input value={teacher.name} onChange={(e) => updateTeacher(i, "name", e.target.value)}
                         placeholder={`TEACHER ${i + 1} NAME`} className={inputCls} />
                       <button type="button" onClick={() => removeTeacher(i)}
-                        className="text-[#fc2c08]/60 hover:text-[#fc2c08] transition-colors p-1 shrink-0">
+                        className="text-[#05998c]/60 hover:text-[#05998c] transition-colors p-1 shrink-0">
                         <Minus className="w-4 h-4" />
                       </button>
                     </div>
@@ -996,7 +996,7 @@ export default function Registration() {
               <button type="button" onClick={handleSubmit} disabled={loading || participatingCount < 4}
                 className={`w-full font-display text-lg md:text-xl py-5 transition-all duration-300 disabled:cursor-not-allowed ${
                   participatingCount >= 4
-                    ? "bg-[#fc2c08] text-black hover:tracking-widest hover:bg-white disabled:opacity-60"
+                    ? "bg-[#05998c] text-black hover:tracking-widest hover:bg-white disabled:opacity-60"
                     : "bg-white/[0.06] text-white/20 disabled:opacity-100"
                 }`}>
                 {loading

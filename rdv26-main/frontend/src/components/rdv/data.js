@@ -10,7 +10,7 @@ export const EVENTS = [
     team_size: 4,
     duration: "24 HRS",
     prize: "0",
-    color: "#fc2c08",
+    color: "#05998c",
     rules: [
       "Each team must have a minimum of 5 and a maximum of 10 members.",
       "A minimum of three instruments must be used in the performance.",

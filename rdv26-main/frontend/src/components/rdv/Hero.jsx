@@ -96,7 +96,7 @@ export default function Hero() {
                 VOUS
               </span>
               <span
-                className="text-[6vw] md:text-[3.5vw] text-[#fc2c08] rotate-y2k-a font-display"
+                className="text-[6vw] md:text-[3.5vw] text-[#05998c] rotate-y2k-a font-display"
                 data-testid="hero-edition-stamp"
               >
                 ✱{FESTIVAL.edition}
@@ -126,7 +126,7 @@ export default function Hero() {
             <Link
               to="/register"
               data-testid="hero-cta-register"
-              className="group inline-flex items-center gap-3 bg-[#fc2c08] text-white font-display text-lg md:text-2xl px-6 md:px-8 py-4 shadow-brutal hover:translate-x-[-4px] hover:translate-y-[-4px] transition-transform"
+              className="group inline-flex items-center gap-3 bg-[#05998c] text-white font-display text-lg md:text-2xl px-6 md:px-8 py-4 shadow-brutal hover:translate-x-[-4px] hover:translate-y-[-4px] transition-transform"
             >
               REGISTER NOW
               <ArrowDownRight className="w-6 h-6 group-hover:rotate-45 transition-transform" />

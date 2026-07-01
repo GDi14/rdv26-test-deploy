@@ -60,7 +60,7 @@ export default function EventDetailsDialog({ event, trigger, open, onOpenChange,
                 ) : (
                   <div className="w-full h-full flex flex-col items-center justify-center p-4 text-center scanlines">
                     <div className="text-white/10 font-display text-2xl mb-2 tracking-[0.2em]">REDACTED</div>
-                    <div className="font-mono-rdv text-[8px] text-[#fc2c08]/40 leading-tight">
+                    <div className="font-mono-rdv text-[8px] text-[#05998c]/40 leading-tight">
                       &gt; [ACCESS_DENIED]
                       <br />
                       &gt; KEY_REQUIRED

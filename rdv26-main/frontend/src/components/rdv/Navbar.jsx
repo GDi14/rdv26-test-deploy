@@ -78,7 +78,7 @@ export default function Navbar() {
           data-testid="navbar-logo"
         >
           {FESTIVAL.short}
-          <span className="text-[#fc2c08]">/</span>
+          <span className="text-[#05998c]">/</span>
           {FESTIVAL.year}
         </Link>
 
@@ -98,7 +98,7 @@ export default function Navbar() {
           className={`pointer-events-auto flex items-center justify-center p-1.5 border rounded-none transition-colors
             ${menuOpen
               ? "border-white/40 text-white hover:border-white"
-              : "border-[#1C1C2E]/20 dark:border-[#D4E5FB]/20 text-[#1C1C2E] dark:text-[#D4E5FB] hover:border-[#fc2c08] dark:hover:border-[#fc2c08]"
+              : "border-[#1C1C2E]/20 dark:border-[#D4E5FB]/20 text-[#1C1C2E] dark:text-[#D4E5FB] hover:border-[#05998c] dark:hover:border-[#05998c]"
             } font-mono-rdv`}
         >
           {theme === "light" ? (
@@ -127,7 +127,7 @@ export default function Navbar() {
         logoUrl={BLANK_IMG}
         menuButtonColor={menuButtonColor}
         openMenuButtonColor="#ffffff"
-        accentColor="#fc2c08"
+        accentColor="#05998c"
         changeMenuColorOnOpen={true}
         closeOnClickAway={true}
         onMenuOpen={() => setMenuOpen(true)}
