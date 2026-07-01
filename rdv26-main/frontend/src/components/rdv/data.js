@@ -153,7 +153,7 @@ export const FESTIVAL = {
   short: "RDV",
   edition: "VOL. 04",
   year: "2026",
-  dates: "JUL 27 2026",
+  dates: "JUL 25 2026",
   date2:"25 / 7 / 26",
   venue: "SARVODAYA VIDYALAYA",
   city: "THIRUVANANTHAPURAM / IN",
@@ -174,7 +174,7 @@ export const EVENT_COORDINATORS = [
       {
         role: "INVOGUE",
         people: [
-          { subrole: "TEACHER COORDINATOR", name: "Mrs. Deepa Majulal", phone: "+91 90743 67292" },
+          { subrole: "TEACHER COORDINATOR", name: "Mrs. Deepa Majulal", phone: "+91 94962 01535" },
           { subrole: "STUDENT COORDINATOR", name: "Mohammad Aslam", phone: "+91 80751 31338" },
           { subrole: "STUDENT COORDINATOR", name: "Navami R Chandra", phone: "+91 98953 02933" },
         ],

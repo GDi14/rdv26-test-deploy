@@ -8,8 +8,20 @@ import ContactPage from "@/pages/ContactPage";
 import GalleryPage from "@/pages/GalleryPage";
 import CustomCursor from "@/components/rdv/CustomCursor";
 import ScanlineOverlay from "@/components/rdv/ScanlineOverlay";
+import ComingSoonBanner from "@/components/rdv/ComingSoonBanner";
 
 function App() {
+  const isComingSoon = process.env.REACT_APP_COMING_SOON === "true";
+
+  if (isComingSoon) {
+    return (
+      <div className="App">
+        <ScanlineOverlay />
+        <ComingSoonBanner />
+      </div>
+    );
+  }
+
   return (
     <div className="App">
       <ScanlineOverlay />

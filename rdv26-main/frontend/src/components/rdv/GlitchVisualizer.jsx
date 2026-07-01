@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Camera, Terminal, AlertTriangle, RefreshCw } from "lucide-react";
+import { Camera, Terminal, AlertTriangle, RefreshCw, Download } from "lucide-react";
 import { FESTIVAL } from "./data";
 
 // Helper to dynamically load external scripts
@@ -148,6 +148,23 @@ export default function GlitchVisualizer() {
     setIsHandRaised(false);
     if (status !== "ERROR") {
       setStatus("STANDBY");
+    }
+  };
+
+  const handleCapture = () => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    try {
+      const dataUrl = canvas.toDataURL("image/png");
+      const link = document.createElement("a");
+      const timestamp = new Date().toISOString().replace(/[:.]/g, "-");
+      link.download = `RDV26_capture_${timestamp}.png`;
+      link.href = dataUrl;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (err) {
+      console.error("Capture failed:", err);
     }
   };
 
@@ -418,13 +435,22 @@ export default function GlitchVisualizer() {
               </div>
             </div>
 
-            {/* Shutdown button */}
-            <button
-              onClick={handleStop}
-              className="absolute top-4 right-4 bg-black/80 hover:bg-[#fc2c08] hover:text-black border border-white/20 text-white transition-all px-3 py-1.5 font-mono-rdv text-[9px] uppercase tracking-wider pointer-events-auto"
-            >
-              [ SHUTDOWN ]
-            </button>
+            {/* Controls */}
+            <div className="absolute top-4 right-4 flex gap-2 pointer-events-auto">
+              <button
+                onClick={handleCapture}
+                className="bg-black/80 hover:bg-[#00ffcc] hover:text-black border border-white/20 text-white transition-all px-3 py-1.5 font-mono-rdv text-[9px] uppercase tracking-wider flex items-center gap-1"
+              >
+                <Download className="w-3 h-3" />
+                [ CAPTURE ]
+              </button>
+              <button
+                onClick={handleStop}
+                className="bg-black/80 hover:bg-[#fc2c08] hover:text-black border border-white/20 text-white transition-all px-3 py-1.5 font-mono-rdv text-[9px] uppercase tracking-wider"
+              >
+                [ SHUTDOWN ]
+              </button>
+            </div>
           </div>
         )}
 
