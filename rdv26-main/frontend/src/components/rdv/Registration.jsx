@@ -382,7 +382,7 @@ export default function Registration() {
     }));
 
   const handleSubmit = async () => {
-    if (participatingCount < 4) { toast.error("MINIMUM 4 EVENTS REQUIRED FOR REGISTRATION"); return; }
+    if (participatingCount < 2) { toast.error("MINIMUM 2 EVENTS REQUIRED FOR REGISTRATION"); return; }
     const participantCount      = getParticipantCount();
     const filledNonParticipants = nonParticipants.filter(n => n.name?.trim()).length;
     const totalStudents         = participantCount + filledNonParticipants;
@@ -820,23 +820,23 @@ export default function Registration() {
             </div>
 
             {/* EVENT STATUS BAR */}
-            <div className={`bg-[#0A0A0A] border p-4 md:p-5 scanlines ${participatingCount >= 4 ? "border-emerald-500/40" : "border-[#05998c]/40"}`}>
+            <div className={`bg-[#0A0A0A] border p-4 md:p-5 scanlines ${participatingCount >= 2 ? "border-emerald-500/40" : "border-[#05998c]/40"}`}>
               <div className="flex items-center justify-between flex-wrap gap-3">
                 <div className="flex items-center gap-3">
                   <Terminal className="w-4 h-4 text-white/60" />
                   <span className="font-mono-rdv text-xs text-white/60 uppercase tracking-widest">§EVENT_REGISTRATION</span>
                 </div>
-                <div className={`font-mono-rdv text-xs uppercase tracking-widest ${participatingCount >= 4 ? "text-emerald-400" : "text-[#05998c]"}`}>
+                <div className={`font-mono-rdv text-xs uppercase tracking-widest ${participatingCount >= 2 ? "text-emerald-400" : "text-[#05998c]"}`}>
                   {participatingCount}/5 EVENTS SELECTED
-                  {participatingCount >= 4 ? " ✓ READY" : ` — ${4 - participatingCount} MORE REQUIRED`}
+                  {participatingCount >= 2 ? " ✓ READY" : ` — ${2 - participatingCount} MORE REQUIRED`}
                 </div>
               </div>
               <div className="mt-3 h-1 bg-white/5 overflow-hidden">
-                <div className={`h-full transition-all duration-500 ${participatingCount >= 4 ? "bg-emerald-500" : "bg-[#05998c]"}`}
+                <div className={`h-full transition-all duration-500 ${participatingCount >= 2 ? "bg-emerald-500" : "bg-[#05998c]"}`}
                   style={{ width: `${(participatingCount / 5) * 100}%` }} />
               </div>
               <p className="font-mono-rdv text-[10px] text-white/30 uppercase tracking-widest mt-3">
-                &gt; Each school must participate in at least 4 out of 5 events. Toggle events on/off and fill in team rosters below.
+                &gt; Each school must participate in at least 2 out of 5 events. Toggle events on/off and fill in team rosters below.
               </p>
             </div>
 
@@ -1007,17 +1007,17 @@ export default function Registration() {
 
             {/* SUBMIT */}
             <div className="pt-2">
-              <button type="button" onClick={handleSubmit} disabled={loading || participatingCount < 4}
+              <button type="button" onClick={handleSubmit} disabled={loading || participatingCount < 2}
                 className={`w-full font-display text-lg md:text-xl py-5 transition-all duration-300 disabled:cursor-not-allowed ${
-                  participatingCount >= 4
+                  participatingCount >= 2
                     ? "bg-[#05998c] text-black hover:tracking-widest hover:bg-white disabled:opacity-60"
                     : "bg-white/[0.06] text-white/20 disabled:opacity-100"
                 }`}>
                 {loading
                   ? "▶ TRANSMITTING..."
-                  : participatingCount >= 4
+                  : participatingCount >= 2
                   ? "▶ TRANSMIT REGISTRATION"
-                  : `SELECT ${4 - participatingCount} MORE EVENT${4 - participatingCount > 1 ? "S" : ""} TO PROCEED`}
+                  : `SELECT ${2 - participatingCount} MORE EVENT${2 - participatingCount > 1 ? "S" : ""} TO PROCEED`}
               </button>
             </div>
           </div>

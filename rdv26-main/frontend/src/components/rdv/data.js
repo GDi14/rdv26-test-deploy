@@ -213,6 +213,24 @@ export const EVENT_COORDINATORS = [
       },
     ],
   },
+  {
+    items: [
+      {
+        role: "MEDIA COORDINATOR",
+        people: [
+          { subrole: "TEACHER COORDINATOR", name: "—", phone: "—" },
+          { subrole: "STUDENT COORDINATOR", name: "—", phone: "—" },
+        ],
+      },
+      {
+        role: "GENERAL COORDINATOR",
+        people: [
+          { subrole: "TEACHER COORDINATOR", name: "—", phone: "—" },
+          { subrole: "STUDENT COORDINATOR", name: "—", phone: "—" },
+        ],
+      },
+    ],
+  },
 ];
 
 export const FAQ = [
