@@ -218,15 +218,15 @@ export const EVENT_COORDINATORS = [
       {
         role: "MEDIA COORDINATOR",
         people: [
-          { subrole: "TEACHER COORDINATOR", name: "—", phone: "—" },
-          { subrole: "STUDENT COORDINATOR", name: "—", phone: "—" },
+          { subrole: "MEDIA AND TECHNICAL COORDINATOR", name: "GOUTHAM DERIL", phone: "+91 9074550594" },
+          { subrole: "MEDIA COORDINATOR", name: "Adityan LAL", phone: "—" },
         ],
       },
       {
-        role: "GENERAL COORDINATOR",
+        role: "GENERAL COORDINATORS",
         people: [
-          { subrole: "TEACHER COORDINATOR", name: "—", phone: "—" },
-          { subrole: "STUDENT COORDINATOR", name: "—", phone: "—" },
+          { subrole: "TEACHER COORDINATOR", name: "Mrs. SANTHOSH K KOSHY", phone: "+91 94475 83796" },
+          { subrole: "STUDENT COORDINATOR", name: "Mr. Binu P", phone: "+91 94475 52677" },
         ],
       },
     ],
@@ -257,26 +257,30 @@ export const FAQ = [
 ];
 
 export const SCHOOLS = [
-  { code: "SV-RDV26", name: "Saraswathi Vidyalaya" },
-  { code: "LOY-RDV26", name: "Loyola School" },
-  { code: "LCS-RDV26", name: "L'ecole Chempaka Silverstone" },
-  { code: "CNI-RDV26", name: "Christ Nagar School (ISC)" },
-  { code: "CNH-RDV26", name: "Christ Nagar School (HSC)" },
-  { code: "GSS-RDV26", name: "Good Shepherd School" },
-  { code: "AFS-RDV26", name: "Alan Feldman Public School" },
-  { code: "NJS-RDV26", name: "Navajeevan Bethany Vidyalaya" },
-  { code: "SCV-RDV26", name: "Sarvodaya Central Vidyalaya" },
-  { code: "TRI-RDV26", name: "Trivandrum International School (TRINS)" },
-  { code: "HAS-RDV26", name: "Holy Angels' School" },
-  { code: "LCI-RDV26", name: "L'ecole Chempaka International" },
-  { code: "APS-RDV26", name: "Army Public School" },
-  { code: "LCSV-RDV26", name: "L'ecole Chempaka Serene Valley" },
-  { code: "CNI-RDV26", name: "Christ Nagar International" },
-  { code: "ACS-RDV26", name: "Arya Central School" },
-  { code: "HACBSE-RDV26", name: "Holy Angels CBSE" },
-  { code: "CHS-RDV26", name: "Cotton Hill Higher Secondary School" },
-  { code: "BVB-RDV26", name: "Bharatiya Vidya Bhavan" },
-  { code: "GVI-RDV26", name: "Greeen Valley International School" }
+  { code: "LOY695017-26", name: "Loyola" },
+  { code: "LCSR695015-105", name: "L'ecole Chempaka Silver Rocks" },
+  { code: "LCIN695015-125", name: "L'ecole Chempaka International" },
+  { code: "SOGS695017-158", name: "School of Good Shepherd" },
+  { code: "MGM695005-208", name: "MGM Central Public School" },
+  { code: "SKS695582-138", name: "Sainik School" },
+  { code: "JCS695582-152", name: "Jyothis Central School" },
+  { code: "AF695582-105", name: "Alan Feldman" },
+  { code: "BVB695881-662", name: "Bharathiya Vidya Bhavan" },
+  { code: "SCV695015-57", name: "Sarvodaya Central Vidyalaya" },
+  { code: "STISC695043-115", name: "St.Thomas ISC" },
+  { code: "STSC695043-168", name: "St.Thomas State" },
+  { code: "SCSTSC695043-168", name: "St.Thomas CBSE" },
+  { code: "NBV6955-123", name: "Navajeevan Bethany Vidyalaya" },
+  { code: "MN695011-118", name: "Mary Nilayam" },
+  { code: "CHS695014-43", name: "Carmel Higher Secondary" },
+  { code: "CV695014-36", name: "Chinmaya Vidyalaya" },
+  { code: "CN695003-25", name: "Christ Nagar ISC" },
+  { code: "CNCBSE695003-92", name: "Christ Nagar CBSE" },
+  { code: "CNS695003-39", name: "Christ Nagar State" },
+  { code: "SVV695013-47", name: "Saraswathi Vidyalaya"},
+  { code: "BVB695013-15", name: "Bharathiya Vidya Bhavan-Vattiyoorkavu"},
+  { code: "HAISC65003-55", name: "Holy Angels ISC"},
+  { code: "NBK695003-65", name: "Nirmala Bhavan"}
 ];
 
 export const SCHOOL_CODES = SCHOOLS.map(s => s.code);
