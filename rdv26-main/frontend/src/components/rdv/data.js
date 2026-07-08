@@ -280,7 +280,8 @@ export const SCHOOLS = [
   { code: "SVV695013-47", name: "Saraswathi Vidyalaya"},
   { code: "BVB695013-15", name: "Bharathiya Vidya Bhavan-Vattiyoorkavu"},
   { code: "HAISC65003-55", name: "Holy Angels ISC"},
-  { code: "NBK695003-65", name: "Nirmala Bhavan"}
+  { code: "NBK695003-65", name: "Nirmala Bhavan"},
+  { code: "SAVY-RDV26", name: "Sarvodaya Vidyalaya"}
 ];
 
 export const SCHOOL_CODES = SCHOOLS.map(s => s.code);
